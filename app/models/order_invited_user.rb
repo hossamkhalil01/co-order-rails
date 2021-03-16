@@ -1,0 +1,2 @@
+class OrderInvitedUser < ApplicationRecord
+end
