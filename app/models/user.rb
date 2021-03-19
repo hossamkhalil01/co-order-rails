@@ -9,6 +9,6 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   # Relationship with group
-  has_many :user_groups, dependent: :destroy
+  has_many :groups , dependent: :destroy
 
 end

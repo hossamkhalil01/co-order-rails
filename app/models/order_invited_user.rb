@@ -1,2 +1,0 @@
-class OrderInvitedUser < ApplicationRecord
-end
