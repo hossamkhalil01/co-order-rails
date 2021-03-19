@@ -6,6 +6,6 @@ class Order < ApplicationRecord
     # Relationship with user
     belongs_to :owner , class_name: "User", foreign_key: :owner_id
 
-    # Relationship with invited_users
-   #has_many :participants , :class_name: 'User' , :through => :order_invited_users 
+    # Relationship with order_invitations
+    has_many :participants , :class_name: 'User' , :through => :order_invitations
 end

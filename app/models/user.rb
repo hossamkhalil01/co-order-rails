@@ -11,4 +11,8 @@ class User < ApplicationRecord
   # Relationship with group
   has_many :groups , dependent: :destroy
 
+  # Relationship with friends (self join)
+  has_many :user_friends, dependent: :destroy
+  has_many :friends, through: :user_friends
+
 end

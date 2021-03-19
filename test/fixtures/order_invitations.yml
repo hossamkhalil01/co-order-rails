@@ -2,8 +2,10 @@
 
 one:
   user: one
-  group: one
+  order: one
+  accepted: false
 
 two:
   user: two
-  group: two
+  order: two
+  accepted: false
