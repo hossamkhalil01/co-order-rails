@@ -3,6 +3,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
     create_table :orders do |t|
 
       t.string :meal_type,              null: false, default: "launch"
+      t.string :menu_image,             null: false, default: ""
       t.string :restaurant,             null: false
       t.string :status,                 null: false, default: "active"
       t.timestamps

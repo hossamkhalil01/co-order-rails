@@ -33,6 +33,17 @@ gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-rails_csrf_protection'
+gem 'dotenv-rails'
+
+# Socket
+gem 'hotwire-rails'
+
+# Image uploading
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
