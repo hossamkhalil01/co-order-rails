@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+.row {
+  position: relative;
+  top: 50%;
+  left: 40%;
+}
