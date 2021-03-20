@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'fc38e34984825b02dc800ae423d14616c23392c7bfc3cd42399df7b5273d804b53fd02cbecbe6020a4ab7f6a4f7515692491a1b9ea38d977dbf12d16cd8668d4'
+  # config.secret_key = 'a9e91161dc1a2db7e341cc6405b7aa9954b58b12d739106f5c7248157418bb6890ae3e219a9f5cee0e67649c209f500c28b62531a3246327cb8a277461a9aba2'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -24,10 +24,10 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'co-order@gmail.com'
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '7cf627a531824885e0214c9a3d15e5524a3f3488b2a328ffd13f8ce0d4c0e17c979cfcaa29e6d876f75af783aa2a14c4fd51c2985d31e8d5c4b94f329836bb06'
+  # config.pepper = 'c537f77bd46d6f59aeca68c1783995509d7a2fbdaec4165a7c552b4dbb454c08b634b6eb09abb15360892ad7a9a159f19076824aef926d252f4f3d1673a23e13'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -164,7 +164,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.weeks
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
@@ -178,7 +178,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 6..128
+  config.password_length = 8..128
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
@@ -224,7 +224,7 @@ Devise.setup do |config|
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
-  config.reset_password_within = 6.hours
+  config.reset_password_within = 1.hours
 
   # When set to false, does not sign a user in automatically after their password is
   # reset. Defaults to true, so a user is signed in automatically after a reset.
@@ -294,7 +294,21 @@ Devise.setup do |config|
   #
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
-  # config.omniauth_path_prefix = '/my_engine/users/auth'
+  # config.omniauth_path_prefix = '/articles/users/auth'
+
+  config.omniauth :facebook, "738975003431273", "ca4d5c13e79e57a056ba79db3bd6cb03", token_params: { parse: :json }
+
+  # config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRT"], {}
+
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRT"], access_type: "online"
+
+  # config.omniauth :facebook, Rails.application.credentials.dig(:facebook, :facebook_client_id),
+  # Rails.application.credentials.dig(:facebook, :facebook_client_secret), scope: 'public_profile_email'
+
+  # config.omniauth :google_oauth2, Rails.application.credentials.dig(:gooogle, :google_client_id),
+  # Rails.application.credentials.dig(:google, :google_client_secret), scope: 'userinfo.email, userinfo.profile'
+
+  # access_type: "online"
 
   # ==> Turbolinks configuration
   # If your app is using Turbolinks, Turbolinks::Controller needs to be included to make redirection work correctly:
@@ -308,4 +322,6 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+
 end
