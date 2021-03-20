@@ -6,6 +6,18 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
 
+
+
+      <div class="form-group">
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name, autofocus: true, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name, autofocus: false, class: 'form-control' %>
+      </div>
+
       <div class="form-group">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: false, class: 'form-control' %>
@@ -24,8 +36,8 @@
         <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
       </div>
 
-      <div class="form-group">
-        <%= f.submit "Sign up", class: "btn btn-primary btn-block btn-lg" %>
+      <div class="d-grid gap-2">
+        <%= f.submit "Sign up", class: "btn btn-success btn-lg" %>
       </div>
     <% end %>
     <div class="text-center">
