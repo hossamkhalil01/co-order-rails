@@ -16,6 +16,8 @@
        <input type="submit"  value="Continue with Google" class="input btn" />
        </form>
 
+       <%= link_to "Continue with Github", user_github_omniauth_authorize_path,  method: :post,  class: "github btn" %>
+
       </div>
   
 <% end %>

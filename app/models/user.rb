@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable, :omniauthable
+         :confirmable, :omniauthable, omniauth_providers: [:facebook, :google_oauth2, :github]
 
   # Relationship with orders
   has_many :orders, class_name: "Order", foreign_key: :owner_id, dependent: :destroy 
@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      binding.pry
+      print auth.info
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.name
