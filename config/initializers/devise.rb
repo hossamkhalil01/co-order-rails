@@ -301,6 +301,7 @@ Devise.setup do |config|
 
   config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRT"], access_type: "online"
 
+  config.omniauth :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
   
 
 
