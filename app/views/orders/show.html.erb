@@ -1,0 +1,37 @@
+<%= render 'layouts/navigation' %>
+
+
+<h1 style="margin-top: 5%;"> Order Details </h1>
+<h3> <%= @order.meal_type %> From <%= @order.restaurant %> </h3>
+<a class="btn btn-primary" style="margin-bottom: 5%;" href="<%= orders_path %>" role="button">
+    Back to Orders
+</a>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th scope="col">Person</th>
+            <th scope="col">Item</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Price</th>
+            <th scope="col">Comment</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        <% for item in @order_items do %>
+
+        <tr>
+            <td> <%= item.orderer.first_name %> </td>
+            <td> <%= item.item %> </td>
+            <td> <%= item.amount %> </td>
+            <td> <%= item.price %> </td>
+            <td> <%= item.comment %> </td>
+        </tr>
+
+        <% end %>
+    </tbody>
+
+</table>

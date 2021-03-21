@@ -1,0 +1,39 @@
+<%= render 'layouts/navigation' %>
+
+
+<h1 style="margin-top: 5%; margin-bottom: 5%;"> My Orders</h1>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th scope="col">Order</th>
+            <th scope="col">Restaurant</th>
+            <th scope="col">Invited</th>
+            <th scope="col">Joined</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% for order in @orders do %>
+
+        <tr>
+            <td> <%=order.meal_type %> </td>
+            <td> <%= order.restaurant %> </td>
+            <td> <%= order.order_invitations.all.count %> </td>
+            <td> <%= order.order_invitations.where("accepted = true").count %> </td>
+            <td> <%= order.status %> </td>
+            <td> <a href="<%=  order_path(order)%>">View</a>
+                <span> | </span>
+                <a href="<%=  edit_order_path(order)%>">Finish</a>
+                <span> | </span>
+                <a href="<%=  edit_order_path(order)%>">Cancel</a>
+            </td>
+        </tr>
+
+        <% end %>
+    </tbody>
+
+</table>

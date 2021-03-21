@@ -6,8 +6,8 @@ class User < ApplicationRecord
          :confirmable, :omniauthable
 
   # Relationship with orders
-  has_many :orders, dependent: :destroy
-
+  has_many :orders, class_name: "Order", foreign_key: :owner_id, dependent: :destroy 
+  
   # Relationship with group
   has_many :groups , dependent: :destroy
 
