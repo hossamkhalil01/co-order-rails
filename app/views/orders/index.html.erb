@@ -1,0 +1,51 @@
+<%= render 'layouts/navigation' %>
+
+<div style="padding: 1%">
+
+    <h1 style="margin-top: 2%; margin-bottom: 5%;"> My Orders</h1>
+
+    <div class="d-flex justify-content-center" style="margin-bottom: 5%;">
+        <a class="btn btn-primary w-25" href="/orders/new" role="button">
+            Start New Order
+        </a>
+    </div>
+
+    <table class="table table-striped">
+
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Order</th>
+                <th scope="col">Restaurant</th>
+                <th scope="col">Invited</th>
+                <th scope="col">Joined</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <% for order in @orders do %>
+
+            <tr class="text-center">
+                <td> <%=order.meal_type %> </td>
+                <td> <%= order.restaurant %> </td>
+                <td> <%= order.invitations.all.count %> </td>
+                <td> <%= order.invitations.where("accepted = true").count %> </td>
+                <td> <%= order.status %> </td>
+                <td> <a href="<%=  order_path(order)%>">View</a>
+                    <% if  order.status == "active" %>
+                    <span> | </span>
+                    <a href="<%=  order_update_status_path(order,"finish")%>">Finish</a>
+                    <span> | </span>
+                    <a href="<%=  order_update_status_path(order,"cancel")%>">Cancel</a>
+                    <% end %>
+                </td>
+            </tr>
+
+            <% end %>
+
+        </tbody>
+
+    </table>
+</div>

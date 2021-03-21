@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>CoOrderRails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %> 
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  
-  </head>
 
-  <body>
-  <% if user_signed_in? %>
-  <p>Welcom <%= current_user.first_name %> </p>
-  <p>Your Email is  <%= current_user.email%> </p>
-  <%=  link_to 'Logout', destroy_user_session_path, method: :delete  %>
-  <% end %>
+</head>
+
+<body>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
-  </body>
+</body>
+
 </html>

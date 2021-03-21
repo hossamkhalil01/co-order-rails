@@ -1,4 +1,5 @@
-class OrderItem < ApplicationRecord
+class Detail < ApplicationRecord
+    
     # Relationship with order
     belongs_to :order
 

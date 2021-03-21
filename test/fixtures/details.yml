@@ -4,10 +4,10 @@ one:
   item: MyString
   comment: MyText
   price: 1.5
-  amount: 
+  amount:
 
 two:
   item: MyString
   comment: MyText
   price: 1.5
-  amount: 
+  amount:
