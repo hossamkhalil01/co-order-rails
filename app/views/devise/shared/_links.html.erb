@@ -3,18 +3,8 @@
 <%- if devise_mapping.omniauthable? %>
       
        <div class="col">
-
-       <form action="<%= user_facebook_omniauth_authorize_path %> " method="POST" class="fb btn">
-       <%= csrf_meta_tags %>
-       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-       <input type="submit"  value="Continue with Facebook" class="input btn" />
-       </form>
-
-       <form action="<%= user_google_oauth2_omniauth_authorize_path %> " method="POST" class="google btn">
-       <%= csrf_meta_tags %>
-       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-       <input type="submit"  value="Continue with Google" class="input btn" />
-       </form>
+      <%= link_to 'Continue with Facebook', user_facebook_omniauth_authorize_path, class: :"fb btn", method: :post %>
+       <%= link_to 'Continue with Google', user_google_oauth2_omniauth_authorize_path, class: :"google btn", method: :post %>
 
        <%= link_to "Continue with Github", user_github_omniauth_authorize_path,  method: :post,  class: "github btn" %>
 
