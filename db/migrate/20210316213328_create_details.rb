@@ -1,6 +1,6 @@
-class CreateOrderItems < ActiveRecord::Migration[6.1]
+class CreateDetails < ActiveRecord::Migration[6.1]
   def change
-    create_table :order_items do |t|
+    create_table :details do |t|
       t.string :item,               null: false
       t.text :comment,              null: false
       t.float :price,               null: false

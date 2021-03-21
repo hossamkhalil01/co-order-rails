@@ -2,6 +2,9 @@
 
 
 <h1 style="margin-top: 5%; margin-bottom: 5%;"> My Orders</h1>
+<a class="btn btn-primary" style="margin-bottom: 5%;" href="<%= new_order_path() %>" role="button">
+    Start New Order
+</a>
 
 <table class="table table-striped">
 
@@ -17,13 +20,14 @@
     </thead>
 
     <tbody>
+
         <% for order in @orders do %>
 
         <tr>
             <td> <%=order.meal_type %> </td>
             <td> <%= order.restaurant %> </td>
-            <td> <%= order.order_invitations.all.count %> </td>
-            <td> <%= order.order_invitations.where("accepted = true").count %> </td>
+            <td> <%= order.invitations.all.count %> </td>
+            <td> <%= order.invitations.where("accepted = true").count %> </td>
             <td> <%= order.status %> </td>
             <td> <a href="<%=  order_path(order)%>">View</a>
                 <span> | </span>
@@ -34,6 +38,7 @@
         </tr>
 
         <% end %>
+
     </tbody>
 
 </table>

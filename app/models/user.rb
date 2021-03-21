@@ -12,8 +12,8 @@ class User < ApplicationRecord
   has_many :groups , dependent: :destroy
 
   # Relationship with friends (self join)
-  has_many :user_friends, dependent: :destroy
-  has_many :friends, through: :user_friends
+  has_many :friends, dependent: :destroy
+  has_many :friends, through: :friends
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

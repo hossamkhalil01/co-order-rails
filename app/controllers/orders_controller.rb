@@ -6,10 +6,13 @@ class OrdersController < ApplicationController
 
     def show 
         @order = current_user.orders.find(params[:id]);
-        @order_items = @order.items.all;
+        @order_details = @order.details.all;
     end 
 
     def edit
+    end
+
+    def new
     end
 
 end

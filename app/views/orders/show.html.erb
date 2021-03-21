@@ -7,6 +7,7 @@
     Back to Orders
 </a>
 
+
 <table class="table table-striped">
 
     <thead>
@@ -21,14 +22,14 @@
     </thead>
 
     <tbody>
-        <% for item in @order_items do %>
+        <% for detail in @order_details do %>
 
         <tr>
-            <td> <%= item.orderer.first_name %> </td>
-            <td> <%= item.item %> </td>
-            <td> <%= item.amount %> </td>
-            <td> <%= item.price %> </td>
-            <td> <%= item.comment %> </td>
+            <td> <%= detail.orderer.first_name %> </td>
+            <td> <%= detail.item %> </td>
+            <td> <%= detail.amount %> </td>
+            <td> <%= detail.price %> </td>
+            <td> <%= detail.comment %> </td>
         </tr>
 
         <% end %>

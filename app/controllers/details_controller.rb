@@ -1,0 +1,4 @@
+class DetailsController < ApplicationController
+
+    
+end
