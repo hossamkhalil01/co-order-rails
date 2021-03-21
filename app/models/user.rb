@@ -15,6 +15,10 @@ class User < ApplicationRecord
   has_many :user_friends, dependent: :destroy
   has_many :friends, through: :user_friends
 
+  #Relation of user to photo
+  has_one :user_images
+
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       binding.pry
