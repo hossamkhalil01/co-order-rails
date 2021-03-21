@@ -1,38 +1,42 @@
 <%= render 'layouts/navigation' %>
 
+<div style="padding: 1%">
+    <h1 style="margin-top: 2%;"> Order Details </h1>
+    <h3> <%= @order.meal_type %> From <%= @order.restaurant %> </h3>
 
-<h1 style="margin-top: 5%;"> Order Details </h1>
-<h3> <%= @order.meal_type %> From <%= @order.restaurant %> </h3>
-<a class="btn btn-primary" style="margin-bottom: 5%;" href="<%= orders_path %>" role="button">
-    Back to Orders
-</a>
+    <table class="table table-striped" style="margin-top: 3%;">
 
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Person</th>
+                <th scope="col">Item</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Price</th>
+                <th scope="col">Comment</th>
+            </tr>
 
-<table class="table table-striped">
+        </thead>
 
-    <thead>
-        <tr>
-            <th scope="col">Person</th>
-            <th scope="col">Item</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Price</th>
-            <th scope="col">Comment</th>
-        </tr>
+        <tbody>
+            <% for detail in @order_details do %>
 
-    </thead>
+            <tr class="text-center">
+                <td> <%= detail.orderer.first_name %> </td>
+                <td> <%= detail.item %> </td>
+                <td> <%= detail.amount %> </td>
+                <td> <%= detail.price %> </td>
+                <td> <%= detail.comment %> </td>
+            </tr>
 
-    <tbody>
-        <% for detail in @order_details do %>
+            <% end %>
+        </tbody>
 
-        <tr>
-            <td> <%= detail.orderer.first_name %> </td>
-            <td> <%= detail.item %> </td>
-            <td> <%= detail.amount %> </td>
-            <td> <%= detail.price %> </td>
-            <td> <%= detail.comment %> </td>
-        </tr>
+    </table>
 
-        <% end %>
-    </tbody>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary w-25 mt-5" href="<%= orders_path %>" role="button">
+            Back to Orders
+        </a>
+    </div>
 
-</table>
+</div>
