@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :orders, class_name: "Order", foreign_key: :owner_id, dependent: :destroy 
   
   # Relationship with group
-  has_many :groups , dependent: :destroy
+  has_many :groups, foreign_key: :owner_id, dependent: :destroy 
 
   # Relationship with friends (self join)
   has_many :friendships, dependent: :destroy
