@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
     
+
     def index
         @orders = current_user.orders.all
     end 
@@ -23,5 +24,27 @@ class OrdersController < ApplicationController
 
         redirect_to orders_path
     end 
+
+    def new
+        @order = current_user.orders.new
+    end
+    
+    def create
+        @order = current_user.orders.new(order_params)
+        if @order.save
+            redirect_to orders_path
+        else
+            render 'new'
+        end
+    end
+
+    private
+
+    def order_params
+      params.require(:order).permit(:meal_type, :menu_image, :restaurant)
+      # params.require(:comment).permit(:commenter, :body, :status).merge!(user_id: current_user.id)
+
+    end
+
     
 end
