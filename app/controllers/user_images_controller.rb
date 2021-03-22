@@ -22,7 +22,7 @@ class UserImagesController < ApplicationController
   # POST /user_images or /user_images.json
   def create
     @user_image = UserImage.new(user_image_params)
-    @user_image.user = current_user
+    render plain: params[:user_image].inspect
 
     respond_to do |format|
       if @user_image.save
@@ -37,6 +37,7 @@ class UserImagesController < ApplicationController
 
   # PATCH/PUT /user_images/1 or /user_images/1.json
   def update
+    render plain: params[:user_image].inspect
     respond_to do |format|
       if @user_image.update(user_image_params)
         format.html { redirect_to @user_image, notice: "User image was successfully updated." }

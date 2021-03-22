@@ -18,6 +18,9 @@ class User < ApplicationRecord
   #Relation of user to photo
   has_one :user_images
 
+  #mount image column to image directory
+  mount_uploader :image, PictureUploader
+
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

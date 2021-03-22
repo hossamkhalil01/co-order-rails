@@ -22,10 +22,10 @@
       <div class="d-flex">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ali">
           <li class="nav-item ">
-          <% if @current_signed_user_image.picture? %>
-            <a href="<%= edit_user_image_path(current_user.id) %>"><%= image_tag @current_signed_user_image.picture.url, style: 'height:70px;width:70;' %></a>
+          <% if current_user.image? %>
+            <a href="<%= edit_user_path(current_user.id) %>"><%= image_tag current_user.image.url, style: 'height:70px;width:70;' %></a>
           <% else %>
-            <a href="<%= new_user_image_path(current_user.id) %>"><img src="/assets/images/unkown-image.jpg" /></a>
+            <a href="<%= edit_user_path(current_user.id) %>"><img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;"></a>
           <% end %>
           </li>
           <li class="nav-item align-self-center">
