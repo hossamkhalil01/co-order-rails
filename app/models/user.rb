@@ -15,6 +15,13 @@ class User < ApplicationRecord
   has_many :friends, dependent: :destroy
   has_many :friends, through: :friends
 
+  #Relation of user to photo
+  has_one :user_images
+
+  #mount image column to image directory
+  mount_uploader :image, PictureUploader
+
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       print auth.info
