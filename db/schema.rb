@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2021_03_20_182523) do
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "image", default: "", null: false
+    t.string "image", default: "https://i.ibb.co/SK3QN1j/unknown-image.jpg", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
