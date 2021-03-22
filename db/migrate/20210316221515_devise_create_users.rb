@@ -7,7 +7,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       ## Extra information
       t.string :first_name,         null: false
       t.string :last_name,          null: false
-      t.string :image,              null: false, default: ""
+      t.string :image,              null: false, default: "https://i.ibb.co/SK3QN1j/unknown-image.jpg"
 
       ## Database authenticatable
       
