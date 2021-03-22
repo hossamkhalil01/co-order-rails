@@ -12,11 +12,8 @@ class User < ApplicationRecord
   has_many :groups , dependent: :destroy
 
   # Relationship with friends (self join)
-  has_many :friends, dependent: :destroy
-  has_many :friends, through: :friends
-
-  #Relation of user to photo
-  has_one :user_images
+  has_many :friendships, dependent: :destroy
+  has_many :friends, :through  => :friendships
 
   #mount image column to image directory
   mount_uploader :image, PictureUploader
