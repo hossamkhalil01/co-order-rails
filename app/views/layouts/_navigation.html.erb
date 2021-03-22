@@ -1,19 +1,26 @@
 <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script>
-$(document).ready(function () {
+<script>
+    $(document).ready(function() {
 
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
         $('#noti_Counter')
-            .css({ opacity: 0 })
-            .text('7')  // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
-            .css({ top: '-10px' })
-            .animate({ top: '-2px', opacity: 1 }, 500);
+            .css({
+                opacity: 0
+            })
+            .text('7') // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .css({
+                top: '-10px'
+            })
+            .animate({
+                top: '-2px',
+                opacity: 1
+            }, 500);
 
-        $('#noti_Button').click(function () {
+        $('#noti_Button').click(function() {
 
             // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
-            $('#notifications').fadeToggle('fast', 'linear', function () {
+            $('#notifications').fadeToggle('fast', 'linear', function() {
                 if ($('#notifications').is(':hidden')) {
                     $('#noti_Button').css('background-color', '#646464');
                 }
@@ -21,13 +28,13 @@ $(document).ready(function () {
                 else $('#noti_Button').css('background-color', '#FFF');
             });
 
-            $('#noti_Counter').fadeOut('slow');     // HIDE THE COUNTER.
+            $('#noti_Counter').fadeOut('slow'); // HIDE THE COUNTER.
 
             return false;
         });
 
         // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
-        $(document).click(function () {
+        $(document).click(function() {
             $('#notifications').hide();
 
             // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
@@ -37,11 +44,11 @@ $(document).ready(function () {
             }
         });
 
-        $('#notifications').click(function () {
-            return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
+        $('#notifications').click(function() {
+            return false; // DO NOTHING WHEN CONTAINER IS CLICKED.
         });
     });
-	</script>
+</script>
 
 
 
@@ -50,74 +57,75 @@ $(document).ready(function () {
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="<%= home_index_path %>">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Friends</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Groups</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= orders_path %>">Orders</a>
-        </li>
-      </ul>
-      <div class="d-flex">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ali">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="<%= home_index_path %>">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Groups</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= orders_path %>">Orders</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ali">
 
 
-        <%
+                    <%
 =begin%>
- Notification button  
-<%
+                    Notification button
+                    <%
 =end%>
 
-<li id="noti_Container" class="nav-item align-self-center">
-                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
-                
-                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                <div id="noti_Button" style="background-color: rgba(255, 255, 255, 0.55)"><i class="fas fa-bell"></i></div>    
+                    <li id="noti_Container" class="nav-item align-self-center">
+                        <div id="noti_Counter"></div>
+                        <!--SHOW NOTIFICATIONS COUNT.-->
 
-                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-                <div id="notifications">
-                    <h3>Notifications</h3>
-                    <div style="height:300px;"></div>
-                    <div class="seeAll"><a href="#">See All</a></div>
-                </div>
-            </li>
+                        <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                        <div id="noti_Button" style="background-color: rgba(255, 255, 255, 0.55)"><i class="fas fa-bell"></i></div>
 
-<%
+                        <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                        <div id="notifications">
+                            <h3>Notifications</h3>
+                            <div style="height:300px;"></div>
+                            <div class="seeAll"><a href="#">See All</a></div>
+                        </div>
+                    </li>
+
+                    <%
 =begin%>
- End of Notification button  
-<%
+                    End of Notification button
+                    <%
 =end%>
-    
 
-          <li class="nav-item ">
-          <% if current_user.image? %>
-            <a href="<%= edit_user_path(current_user.id) %>"><%= image_tag current_user.image.url, style: 'height:70px;width:70;' %></a>
-          <% else %>
-            <a href="<%= edit_user_path(current_user.id) %>"><img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;"></a>
-          <% end %>
-          </li>
-          <li class="nav-item align-self-center">
-            <% if user_signed_in? %>
-              <span class="nav-link"><%= current_user.first_name %></span>
-            </li>
-            <li class="nav-item align-self-center">
-              <%=  link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete %>
-            </li>
-            <% end %>
-        </ul>
-      </div>
-    </div>
+
+                    <li class="nav-item ">
+                        <% if current_user.image? %>
+                        <a href="<%= edit_user_path(current_user.id) %>"><%= image_tag current_user.image.url, style: 'height:70px;width:70;' %></a>
+                        <% else %>
+                        <a href="<%= edit_user_path(current_user.id) %>"><img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;"></a>
+                        <% end %>
+                    </li>
+                    <li class="nav-item align-self-center">
+                        <% if user_signed_in? %>
+                        <span class="nav-link"><%= current_user.first_name %></span>
+                    </li>
+                    <li class="nav-item align-self-center">
+                        <%=  link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete %>
+                    </li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
 </nav>
 
 
@@ -135,9 +143,9 @@ $(document).ready(function () {
 
 
 <script>
-// When the user clicks on div, open the popup
-function myFunction() {
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
-}
+    // When the user clicks on div, open the popup
+    function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+    }
 </script>
