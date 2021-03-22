@@ -9,6 +9,9 @@ class Order < ApplicationRecord
     # Relationship with order invitations
     has_many :invitations
     has_many :participants , class_name: 'User' , :through => :invitations
+
+    # Validation
+    validates :status, presence: true, acceptance: { accept: ['Active', 'Finish' , 'Cancel'] }
     
 end 
  

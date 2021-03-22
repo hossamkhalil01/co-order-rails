@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 2021_03_20_182523) do
     t.index ["orderer_id"], name: "index_details_on_orderer_id"
   end
 
-  create_table "friends", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "friendships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "friend_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["friend_id"], name: "index_friends_on_friend_id"
-    t.index ["user_id"], name: "index_friends_on_user_id"
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
   create_table "groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -52,13 +52,13 @@ ActiveRecord::Schema.define(version: 2021_03_20_182523) do
     t.index ["participant_id"], name: "index_invitations_on_participant_id"
   end
 
-  create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "memberships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "member_id", null: false
     t.bigint "group_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["group_id"], name: "index_members_on_group_id"
-    t.index ["member_id"], name: "index_members_on_member_id"
+    t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["member_id"], name: "index_memberships_on_member_id"
   end
 
   create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -94,12 +94,12 @@ ActiveRecord::Schema.define(version: 2021_03_20_182523) do
 
   add_foreign_key "details", "orders"
   add_foreign_key "details", "users", column: "orderer_id"
-  add_foreign_key "friends", "users"
-  add_foreign_key "friends", "users", column: "friend_id"
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "invitations", "orders"
   add_foreign_key "invitations", "users", column: "participant_id"
-  add_foreign_key "members", "groups"
-  add_foreign_key "members", "users", column: "member_id"
+  add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "users", column: "member_id"
   add_foreign_key "orders", "users", column: "owner_id"
 end
