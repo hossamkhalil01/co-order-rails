@@ -2,6 +2,8 @@ class GroupsController < ApplicationController
   before_action :set_group, only: %i[ show edit update destroy ]
 
   def index
+    @groups = Group.all
+    @group = Group.new
   end
 
   def new
@@ -12,6 +14,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
     @group.save
+    redirect_to groups_path
   end
 
   private

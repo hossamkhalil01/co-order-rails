@@ -6,5 +6,6 @@ class Group < ApplicationRecord
     # Relationship with group members
     has_many :memberships
     has_many :members, class_name: "User", through: :memberships
+    validates :name , presence: true,  format: {with: /[a-zA-Z]/}
 
 end
