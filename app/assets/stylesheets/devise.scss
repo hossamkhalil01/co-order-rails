@@ -1,0 +1,51 @@
+.row {
+  position: relative;
+  top: 50%;
+  left: 40%;
+}
+
+.row div {
+  margin-top: 15px;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+}
+
+.btn:hover {
+  opacity: 1;
+  color: white;
+  cursor: pointer;
+}
+
+.fb {
+  background-color: #3b5998;
+  color: white;
+}
+
+.google {
+  background-color: #dd4b39;
+  color: white;
+}
+
+.github {
+  background-color: black;
+  color: white;
+}
+
+/* style the submit button */
+.input[type="submit"] {
+  color: white;
+  cursor: pointer;
+}
+a {
+  text-decoration-style: none;
+}
