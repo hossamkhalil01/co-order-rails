@@ -13,8 +13,13 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
-    @group.save
-    redirect_to groups_path
+    
+    if @group.save
+      redirect_to groups_path
+    else
+      @groups = Group.all
+      render :index
+    end
   end
 
   private
