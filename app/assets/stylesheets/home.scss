@@ -1,3 +1,18 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.container div {
+  border: 2px solid black;
+  display: inline-block;
+  height: 500px;
+  width: 500px;
+  margin: 50px;
+  padding: 25px;
+}
+
+.latest-orders {
+}
+
+.friends-activity {
+}
