@@ -1,10 +1,10 @@
 <%= render 'layouts/navigation' %>
 
 <div style="padding: 1%">
-    <h1 style="margin-top: 2%;"> Order Details </h1>
-    <h3> <%= @order.meal_type %> From <%= @order.restaurant %> </h3>
+    <h2 style="margin-top: 2%;"> <%= @order.meal_type.capitalize() %> from <%= @order.restaurant %></h2>
+    <h3> By: <%= @order.owner.first_name.capitalize %> <%= @order.owner.last_name.capitalize()%> </h3>
 
-    <table class="table table-striped" style="margin-top: 3%;">
+    <table class="table table-striped fs-4" style="margin-top: 3%;">
 
         <thead>
             <tr class="text-center">
@@ -21,11 +21,11 @@
             <% for detail in @order_details do %>
 
             <tr class="text-center">
-                <td> <%= detail.orderer.first_name %> </td>
-                <td> <%= detail.item %> </td>
-                <td> <%= detail.amount %> </td>
-                <td> <%= detail.price %> </td>
-                <td> <%= detail.comment %> </td>
+                <td class="fs-5"> <%= detail.orderer.first_name %> </td>
+                <td class="fs-5"> <%= detail.item %> </td>
+                <td class="fs-5"> <%= detail.amount %> </td>
+                <td class="fs-5"> <%= detail.price %> </td>
+                <td class="fs-5"> <%= detail.comment %> </td>
             </tr>
 
             <% end %>
@@ -33,10 +33,18 @@
 
     </table>
 
-    <div class="d-flex justify-content-center">
-        <a class="btn btn-primary w-25 mt-5" href="<%= orders_path %>" role="button">
-            Back to Orders
-        </a>
-    </div>
-
 </div>
+
+
+<%= form_with model: @detail , url: order_details_path(@order.id)  do |form| %>
+<%= form.label :Amount%>
+<%= form.text_field :amount %>
+<%= form.label :Item%>
+<%= form.text_field :item %>
+<%= form.label :Price%>
+<%= form.text_field :price %>
+<%= form.label :Comment%>
+<%= form.text_area :comment, size: "30x5" %>
+
+<%= form.submit %>
+<% end %>

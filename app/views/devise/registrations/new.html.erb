@@ -1,56 +1,67 @@
 <div class="row">
 
-      <div class="text-center mt-4">
+    <div class="text-center mt-4">
         <label class="notice"><%= notice %></label>
         <label class="alert"><%= alert %></label>
-        </div>
-  <div class="col-sm-4 col-sm-offset-4">
-
-    <h1 class="text-center">Sign Up</h1>
-    <div class="text-center mt-4">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-        </div>
-    <hr>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
-
-
-
-      <div class="form-group">
-        <%= f.label :first_name %><br />
-        <%= f.text_field :first_name, autofocus: true, class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :last_name %><br />
-        <%= f.text_field :last_name, autofocus: false, class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: false, class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password %>
-        <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
-      </div>
-
-      <div class="d-grid gap-2">
-        <%= f.submit "Sign up", class: "btn btn-success btn-lg" %>
-      </div>
-    <% end %>
-    <div class="text-center">
-      <%= render "devise/shared/links" %>
     </div>
-  </div>
+    <div class="col-sm-4 col-sm-offset-4">
+
+        <h1 class="text-center">Sign Up</h1>
+        <div class="text-center mt-4">
+            <p class="notice"><%= notice %></p>
+            <p class="alert"><%= alert %></p>
+        </div>
+        <hr>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+
+
+        <% if $error_messges  %>
+        <%= "There is an error with the  provider your are trying to login with " %>
+        <br />
+        <% $error_messges.each do |error| %>
+
+        <%= error  %>
+        <% end %>
+
+        <%= "Please sginup manualy" %>
+        <% end %>
+
+
+        <div class="form-group">
+            <%= f.label :first_name %><br />
+            <%= f.text_field :first_name, autofocus: true, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :last_name %><br />
+            <%= f.text_field :last_name, autofocus: false, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: false, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+        </div>
+
+        <div class="d-grid gap-2">
+            <%= f.submit "Sign up", class: "btn btn-success btn-lg" %>
+        </div>
+        <% end %>
+        <div class="text-center">
+            <%= render "devise/shared/links" %>
+        </div>
+    </div>
 </div>

@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
     def show 
         @order = current_user.orders.find(params[:id])
         @order_details = @order.details.all
+        @detail = Detail.new
     end 
 
     def update_status
