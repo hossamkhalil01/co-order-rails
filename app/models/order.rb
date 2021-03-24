@@ -12,6 +12,5 @@ class Order < ApplicationRecord
 
     # Validation
     validates :status, presence: true, acceptance: { accept: ['active', 'finish' , 'cancel'] }
-    validates :meal_type, presence: true, acceptance: { accept: ['breakfast', 'launch' , 'dinner'] }
+    validates :meal_type, presence: true, acceptance: { accept: ['breakfast', 'lunch' , 'dinner'] }
 end 
- 
