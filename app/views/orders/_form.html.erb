@@ -5,12 +5,12 @@
 
   <p>
     <%= form.label :meal_type %><br>
-    <%= form.select :meal_type, ['breakfast', 'lunch', 'dinner'], selected: 'lunch' %>
+    <%= form.select :meal_type, ['breakfast', 'launch', 'dinner'], selected: 'launch' %>
   </p>
 
   <p>
     <%= form.label :menu_image %>
-    <%= form.text_field :menu_image %>
+    <%= form.file_field :menu_image, accept: 'image/jpeg, image/gif, image/png, /image/jpg' %>
   </p>
 
    <p>

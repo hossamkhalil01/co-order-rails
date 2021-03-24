@@ -43,7 +43,6 @@ class OrdersController < ApplicationController
 
     def order_params
       params.require(:order).permit(:meal_type, :menu_image, :restaurant)
-      # params.require(:comment).permit(:commenter, :body, :status).merge!(user_id: current_user.id)
 
     end
 
