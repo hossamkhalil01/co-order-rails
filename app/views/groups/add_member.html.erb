@@ -1,0 +1,44 @@
+<%= render 'layouts/navigation' %>
+<div>
+    <h1>Groups</h1>
+</div>
+
+<%= form_with model: @group, url: groups_path do |form| %>
+<div class="d-flex g-3 justify-content-sm-center">
+    <div class="col-1 align-self-center">
+        <%= form.label :name, "Group", class: "col-form-label fw-bold" %>
+    </div>
+    <div class="col-6 align-self-center m-2">
+        <%= form.text_field :name, class: "form-control" %>
+    </div>
+    <div class="col-1 align-self-center">
+        <%= form.submit "Add", class: "btn btn-primary" %>
+    </div>
+</div>
+<% end %>
+<div class="container-fluid">
+    <div class="d-flex border justify-content-between">
+        <div class="d-flex col-md-3 border">
+            <div class="col-md-12">
+              <div class="my-groups">
+                <% @groups.each do |group| %>
+                <p><%=  group.name %></p>
+                <%= link_to "Edit", group_add_member_path(group) %>
+                <%= link_to "Delete", group_path(group), method: :delete, data: {confirm: "Are you sure?"} %>
+                <% end %>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-8 border">
+            <div class="col-md-12">
+              <div class="my-friends">
+                <%= render 'form_add_member'%>
+                <% @members.each do |member| %>
+                    <p><%= member.first_name %> <%= member.last_name %></p>
+                    <%= link_to "Remove", group_destroy_member_path(member_id: member.id), :method=>"delete", data: {confirm: "Are you sure?"} %>
+                <% end %>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
