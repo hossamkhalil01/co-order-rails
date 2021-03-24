@@ -1,52 +1,50 @@
 <%= render 'layouts/navigation' %>
 
 <div style="padding: 1%">
-  <h2 style="margin-top: 2%;"> <%= @order.meal_type.capitalize() %> from <%= @order.restaurant %></h2>
-  <h3> By: <%= @order.owner.first_name.capitalize %> <%= @order.owner.last_name.capitalize()%> </h3>
+    <h2 style="margin-top: 2%;"> <%= @order.meal_type.capitalize() %> from <%= @order.restaurant %></h2>
+    <h3> By: <%= @order.owner.first_name.capitalize %> <%= @order.owner.last_name.capitalize()%> </h3>
 
-  <table class="table table-striped fs-4" style="margin-top: 3%;">
+    <table class="table table-striped fs-4" style="margin-top: 3%;">
 
-    <thead>
-      <tr class="text-center">
-        <th scope="col">Person</th>
-        <th scope="col">Item</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Price</th>
-        <th scope="col">Comment</th>
-      </tr>
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Person</th>
+                <th scope="col">Item</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Price</th>
+                <th scope="col">Comment</th>
+            </tr>
 
-    </thead>
+        </thead>
 
-    <tbody>
-      <% for detail in @order_details do %>
+        <tbody>
+            <% for detail in @order_details do %>
 
-      <tr class="text-center">
-        <td class="fs-5"> <%= detail.orderer.first_name %> </td>
-        <td class="fs-5"> <%= detail.item %> </td>
-        <td class="fs-5"> <%= detail.amount %> </td>
-        <td class="fs-5"> <%= detail.price %> </td>
-        <td class="fs-5"> <%= detail.comment %> </td>
-      </tr>
+            <tr class="text-center">
+                <td class="fs-5"> <%= detail.orderer.first_name %> </td>
+                <td class="fs-5"> <%= detail.item %> </td>
+                <td class="fs-5"> <%= detail.amount %> </td>
+                <td class="fs-5"> <%= detail.price %> </td>
+                <td class="fs-5"> <%= detail.comment %> </td>
+            </tr>
 
-      <% end %>
-    </tbody>
+            <% end %>
+        </tbody>
 
-  </table>
+    </table>
 
 </div>
 
 
-<%= form_with model: detail , method: :get do |form| %>
-
-<%= form.text_field :amount %>
+<%= form_with model: @detail , url: order_details_path(@order.id)  do |form| %>
 <%= form.label :Amount%>
-<%= form.text_field :item %>
+<%= form.text_field :amount %>
 <%= form.label :Item%>
-<%= form.text_field :price %>
+<%= form.text_field :item %>
 <%= form.label :Price%>
-<%= form.text_area :comment, size: "30x3" %>
+<%= form.text_field :price %>
 <%= form.label :Comment%>
+<%= form.text_area :comment, size: "30x5" %>
 
-<%= form.submit "Add Order" %>
-
+<%= form.submit %>
 <% end %>
