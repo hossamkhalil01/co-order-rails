@@ -20,17 +20,23 @@ class User < ApplicationRecord
 
 
   def self.from_omniauth(auth)
+    binding.pry
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      print auth.info
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.name
       user.last_name = auth.info.name   
       user.image = auth.info.image 
       # skiping eamil confirmation when use the providers  
+      if user.image
+      else
+        user.image = "https://i.ibb.co/SK3QN1j/unknown-image.jpg"
+      end
+
       user.skip_confirmation!
       user.save!
-      
+    rescue 
+      $error_messges = user.errors.full_messages 
   end
 end
 
