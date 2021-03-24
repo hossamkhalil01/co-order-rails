@@ -1,16 +1,16 @@
 <h1> New Order Form </h1>
 <%= form_with model: @order do |form| %>
 
-  
+
 
   <p>
     <%= form.label :meal_type %><br>
-    <%= form.select :status, ['breakfast', 'lunch', 'dinner'], selected: 'breakfast' %>
+    <%= form.select :meal_type, ['breakfast', 'lunch', 'dinner'], selected: 'lunch' %>
   </p>
 
   <p>
     <%= form.label :menu_image %>
-    <%= form.file_field :menu_image, accept: 'image/jpeg, image/gif, image/png, /image/jpg' %>
+    <%= form.text_field :menu_image %>
   </p>
 
    <p>

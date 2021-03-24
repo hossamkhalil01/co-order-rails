@@ -31,6 +31,7 @@ class OrdersController < ApplicationController
     
     def create
         @order = current_user.orders.new(order_params)
+        puts @order.inspect
         if @order.save
             redirect_to orders_path
         else
