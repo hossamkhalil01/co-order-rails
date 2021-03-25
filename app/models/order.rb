@@ -10,6 +10,8 @@ class Order < ApplicationRecord
     has_many :invitations
     has_many :participants , class_name: 'User' , :through => :invitations
 
+    mount_uploader :menu_image, PictureUploader
+
     # Validation
     validates :status, presence: true, acceptance: { accept: ['active', 'finish' , 'cancel'] }
     validates :meal_type, presence: true, acceptance: { accept: ['breakfast', 'lunch' , 'dinner'] }

@@ -10,6 +10,14 @@ class DetailsController < ApplicationController
         end 
     end
 
+    def destroy 
+        @detail = Detail.find(params[:id])     
+        if  @detail.orderer_id == current_user.id
+            @detail.destroy  
+        end
+        redirect_to order_path(params[:order_id])                 
+    end
+ 
 
     private 
         def detail_params

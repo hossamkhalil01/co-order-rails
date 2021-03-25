@@ -4,6 +4,12 @@
     <h2 style="margin-top: 2%;"> <%= @order.meal_type.capitalize() %> from <%= @order.restaurant %></h2>
     <h3> By: <%= @order.owner.first_name.capitalize %> <%= @order.owner.last_name.capitalize()%> </h3>
 
+        <% if @order.menu_image? %>
+        <%= image_tag @order.menu_image.url, style:"height:70px;width:70;" %>
+            <% else %>
+        <img src="https://menuready.com.au/wp-content/uploads/2017/12/DUMMY-MENU.png" alt="unknown-image" style="width: 70px;height: 70px;">
+        <% end %>
+    
     <table class="table table-striped fs-4" style="margin-top: 3%;">
 
         <thead>
@@ -13,6 +19,7 @@
                 <th scope="col">Amount</th>
                 <th scope="col">Price</th>
                 <th scope="col">Comment</th>
+                <th scope="col">Action</th>
             </tr>
 
         </thead>
@@ -25,8 +32,14 @@
                 <td class="fs-5"> <%= detail.item %> </td>
                 <td class="fs-5"> <%= detail.amount %> </td>
                 <td class="fs-5"> <%= detail.price %> </td>
-                <td class="fs-5"> <%= detail.comment %> </td>
+                <td class="fs-5"> <%= detail.comment %> </td>              
+                <% if current_user.id == detail.orderer_id %>
+                    <td><%= link_to "Delete", order_detail_path(detail), method: :delete %></td>
+                <td class="fs-5"> </td>
+                <% end %>
+               
             </tr>
+
 
             <% end %>
         </tbody>
@@ -48,3 +61,4 @@
 
 <%= form.submit %>
 <% end %>
+
