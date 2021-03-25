@@ -2,54 +2,52 @@
 
 <div style="padding: 1%">
 
-    <h1 style="margin-top: 2%; margin-bottom: 5%;"> My Orders</h1>
 
-    <div class="d-flex justify-content-center" style="margin-bottom: 5%;">
-        <a class="btn btn-primary w-25" href="/orders/new" role="button">
-            Start New Order
-        </a>
-    </div>
+  <h1 style="margin-top: 2%; margin-bottom: 5%;"> My Orders</h1>
 
-    <table class="table table-striped">
+  <div class="d-flex justify-content-center" style="margin-bottom: 5%;">
+    <a class="btn btn-primary w-25" href="/orders/new" role="button">
+      Start New Order
+    </a>
+  </div>
 
-        <thead>
-            <tr class="text-center">
-                <th scope="col">Order</th>
-                <th scope="col">Restaurant</th>
-                <th scope="col">Invited</th>
-                <th scope="col">Joined</th>
-                <th scope="col">Status</th>
-                <th scope="col">Actions</th>
-                
-            </tr>
-        </thead>
+  <table class="table table-striped fs-4">
 
-        <tbody>
+    <thead>
+      <tr class="text-center">
+        <th scope="col">Order</th>
+        <th scope="col">Restaurant</th>
+        <th scope="col">Invited</th>
+        <th scope="col">Joined</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
 
-            <% for order in @orders do %>
+    <tbody>
 
-            <tr class="text-center">
-                <td> <%=order.meal_type %> </td>
-                <td> <%= order.restaurant %> </td>
-                <td> <%= order.invitations.all.count %> </td>
-                <td> <%= order.invitations.where("accepted = true").count %> </td>
-                <td> <%= order.status %> </td>
-                <td> <a href="<%=  order_path(order)%>">View</a>
-                    <% if  order.status == "active" %>
-                    <span> | </span>
-                    <a href="<%=  order_update_status_path(order,"finish")%>">Finish</a>
-                    <span> | </span>
-                    <a href="<%=  order_update_status_path(order,"cancel")%>">Cancel</a>
-                    <% end %>
-                </td>
-                
+      <% for order in @orders do %>
 
+      <tr class=" text-center">
+        <td class="fs-5"> <%=order.meal_type.capitalize() %> </td>
+        <td class="fs-5"> <%= order.restaurant %> </td>
+        <td class="fs-5"> <%= order.invitations.all.count() %> </td>
+        <td class="fs-5"> <%= order.invitations.where("accepted = true").count %> </td>
+        <td class="fs-5"> <%= order.status.capitalize()  %> </td>
+        <td class="fs-5"> <a href="<%=  order_path(order)%>">View</a>
+          <% if  order.status == "active" %>
+          <span> | </span>
+          <a href="<%=  order_update_status_path(order,"finish")%>">Finish</a>
+          <span> | </span>
+          <a href="<%=  order_update_status_path(order,"cancel")%>">Cancel</a>
+          <% end %>
+        </td>
+      </tr>
 
-            </tr>
+      <% end %>
 
-            <% end %>
+    </tbody>
 
-        </tbody>
+  </table>
 
-    </table>
 </div>

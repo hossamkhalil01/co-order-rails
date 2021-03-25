@@ -1,50 +1,53 @@
 <h2>OR</h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <%- if devise_mapping.omniauthable? %>
-      
-       <div class="col">
 
-       <form action="<%= user_facebook_omniauth_authorize_path %> " method="POST" class="fb btn">
-       <%= csrf_meta_tags %>
-       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-       <input type="submit"  value="Continue with Facebook" class="input btn" />
-       </form>
+<div class="col">
+    <div class="facebook-div">
+        <i class="fa fa-facebook"></i>
+        <%= link_to 'Continue with Facebook', user_facebook_omniauth_authorize_path, class: :"fb btn", method: :post %>
 
-       <form action="<%= user_google_oauth2_omniauth_authorize_path %> " method="POST" class="google btn">
-       <%= csrf_meta_tags %>
-       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-       <input type="submit"  value="Continue with Google" class="input btn" />
-       </form>
+    </div>
+    <div class="google-div">
+        <i class="fa fa-google"></i>
+        <%= link_to 'Continue with Google', user_google_oauth2_omniauth_authorize_path, class: :"google btn", method: :post %>
+    </div>
+    <div class="github-div">
+        <i class="fa fa-github"></i>
+        <%= link_to "Continue with Github", user_github_omniauth_authorize_path,  method: :post,  class: "github btn" %>
+    </div>
 
-       <%= link_to "Continue with Github", user_github_omniauth_authorize_path,  method: :post,  class: "github btn" %>
 
-      </div>
-  
+
+
+
+
+</div>
+
 <% end %>
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+<%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
 <% end -%>
 
 
 
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) %><br />
+<%= link_to "Log in", new_session_path(resource_name) %><br />
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+<%= link_to "Sign up", new_registration_path(resource_name) %><br />
 <% end -%>
 
 
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+<%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
 <% end -%>
 
 
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+<%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
 <% end -%>
-
-

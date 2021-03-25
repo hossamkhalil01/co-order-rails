@@ -11,7 +11,6 @@ class Order < ApplicationRecord
     has_many :participants , class_name: 'User' , :through => :invitations
 
     # Validation
-    # validates :status, presence: true, acceptance: { accept: ['active', 'Finish' , 'Cancel'] }
-    
+    validates :status, presence: true, acceptance: { accept: ['active', 'finish' , 'cancel'] }
+    validates :meal_type, presence: true, acceptance: { accept: ['breakfast', 'lunch' , 'dinner'] }
 end 
- 
