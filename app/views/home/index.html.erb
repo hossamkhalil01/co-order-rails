@@ -1,20 +1,27 @@
 <%= render 'layouts/navigation' %>
 
 <div class="container">
+
     <div class="latest-orders text-center">
-    <h3>Latest Orders</h3>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
+        <%= turbo_frame_tag "latest-order"  do %>
+        <h3>Latest Orders</h3>
+        <a href="#"> any thing</a><br />
+        <a href="#"> any thing</a><br />
+        <a href="#"> any thing</a><br />
+        <a href="#"> any thing</a><br />
+        <% end %>
     </div>
+
+
 
     <div class="friends-activity text-center">
-    <h3>Friends Activity </h3>
-
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
+        <%= turbo_frame_tag "friends-activities"  do %>
+        <h3>Friends Activity </h3>
+        <a href="#"> any thing</a><br />
+        <a href="#"> any thing</a><br />
+        <a href="#"> any thing</a><br />
+        <a href="#"> any thing</a><br />
+        <% end %>
     </div>
+
 </div>
