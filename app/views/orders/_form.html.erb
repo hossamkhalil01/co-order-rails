@@ -8,16 +8,21 @@
     <%= form.select :meal_type, ['breakfast', 'launch', 'dinner'], selected: 'launch' %>
   </p>
 
-  <p>
-    <%= form.label :menu_image %>
-    <%= form.file_field :menu_image, accept: 'image/jpeg, image/gif, image/png, /image/jpg' %>
-  </p>
-
    <p>
     <%= form.label :restaurant %><br>
     <%= form.text_field :restaurant %>
   </p>
    
+  <p>
+    <%= form.label :Friends %><br>
+    <%= form.text_field :email %>
+  </p>
+  <button class="btn btn-primary">Check</button>
+
+  <p>
+    <%= form.label :menu_image %>
+    <%= form.file_field :menu_image, accept: 'image/jpeg, image/gif, image/png, /image/jpg' %>
+  </p>
 
   <p>
     <%= form.submit %>
