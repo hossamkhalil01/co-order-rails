@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
+  
   root to: "home#index"
   devise_for :users,  controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :home
   resources :users
+  resources :friends
   resources :groups do
     get '/member', to: 'groups#add_member', as: 'add_member'
     post '/member', to:	'groups#create_member', as: 'create_member'
@@ -14,5 +16,5 @@ Rails.application.routes.draw do
     get '/:status', to: 'orders#update_status', as: 'update_status'
     resources :details
   end 
-
+                                         
 end
