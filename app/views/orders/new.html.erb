@@ -1,1 +1,70 @@
-<h1> New Order Form </h1>
+<%= render 'layouts/navigation' %>
+
+<%= form_with model: @order, :id =>"create_new_order" , local: true do |form| %>
+
+<div class="group-content add-orders">
+    <div class="container">
+        <br><br>
+        <div class="row">
+            <div class="col-12">
+                <h1>Add Order</h1>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-8">
+                <span class="ownername"><%=current_user.first_name%></span>
+                <p class="field">
+                <div class="row">
+                    <div class="col-4">
+                        <%= form.label :restaurant_name %><br>
+                    </div>
+                    <div class="col-8">
+                        <%= form.text_field :restaurant_name , :class=>'rest-name' %>
+                    </div>
+                </div>
+                </p>
+
+                <p class="field">
+                    <%= form.label :meal %><br>
+                    <%= form.select :meal, ['breakfast', 'lunch', 'dinner'], selected: 'breakfast' %>
+                </p>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="example-text-input" class="col-2 col-form-label">Menu Image:</label>
+                    </div>
+
+                    <div class="col-8">
+                        <%= form.file_field :menu_image %>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8">
+                        <div style="text-align: right;" class="secondary-btn">
+
+                            <div class="mybutton">
+                                <p>
+                                    <%= form.submit %>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <% end %>
+
+            </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
