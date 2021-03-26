@@ -9,6 +9,8 @@ class OrdersController < ApplicationController
         @order = current_user.orders.find(params[:id])
         @order_details = @order.details.all
         @detail = Detail.new
+        @invited_users = @order.invitations.all
+        @accepted_users = @order.invitations.where("accepted = true")
     end 
 
     def update_status

@@ -1,3 +1,5 @@
+<%= render 'layouts/navigation' %>
+
 <h1> New Order Form </h1>
 <%= form_with model: @order do |form| %>
 
@@ -5,7 +7,7 @@
 
   <p>
     <%= form.label :meal_type %><br>
-    <%= form.select :meal_type, ['breakfast', 'launch', 'dinner'], selected: 'launch' %>
+    <%= form.select :meal_type, ['breakfast', 'lunch', 'dinner'], selected: 'lunch' %>
   </p>
 
    <p>
