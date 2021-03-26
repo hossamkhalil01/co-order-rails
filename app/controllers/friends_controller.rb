@@ -6,20 +6,22 @@ class FriendsController < ApplicationController
       user = User.find_by email: params[:email]
       if user
         if (Friendship.where(:friend_id => user.id, :user_id => current_user.id).count > 0) 
-          flash[:error] = "Unable to add friend."
-            redirect_to friends_path
+          flash[:error] = "Friend already exists."
         else
-          if Friendship.create(friend_id: user.id, user_id: current_user.id)
-            flash[:notice] = "Friend added."
-            redirect_to friends_path
+          if (current_user.id == user.id) 
+            flash[:error] = "You can't add yourself."
           else
-            flash[:error] = "Unable to add friend."
-            redirect_to friends_path
+              if Friendship.create(friend_id: user.id, user_id: current_user.id)
+                flash[:notice] = "Friend added."
+              else
+                flash[:error] = "Unable to add friend."
+              end
           end
         end
       else
-        flash[:error] = "user not found"  
+        flash[:error] = "Email not found"
       end
+      redirect_to friends_path
     end
       
     def destroy
@@ -31,8 +33,5 @@ class FriendsController < ApplicationController
 
     def index
         @friends = current_user.friends
-    end
-
-
- 
+    end 
 end
