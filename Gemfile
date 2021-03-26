@@ -44,7 +44,7 @@ gem 'hotwire-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
-gem 'will_paginate'
+
 gem 'bootstrap-will_paginate'
 
 group :development, :test do
@@ -78,3 +78,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
+
+
+# Styling
+gem 'will_paginate', '~> 3.3'
+gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'

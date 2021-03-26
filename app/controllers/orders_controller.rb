@@ -2,15 +2,19 @@ class OrdersController < ApplicationController
     
 
     def index
-        @orders = current_user.orders.all
+        # @orders = current_user.orders.all
+        @orders = current_user.orders.all.paginate(page: params[:page])
     end 
 
     def show 
         @order = current_user.orders.find(params[:id])
-        @order_details = @order.details.all
+        @order_details = @order.details.all.paginate(page: params[:page])
         @detail = Detail.new
         @invited_users = @order.invitations.all
         @accepted_users = @order.invitations.where("accepted = true")
+        # 
+        
+
     end 
 
     def update_status
@@ -35,13 +39,13 @@ class OrdersController < ApplicationController
     def create
         @order = current_user.orders.new(order_params)
         # puts @order.inspect
-        # puts 
+        @participant = User.where(invitation_params)[0]
+
         if @order.save
-            @participant = User.where(invitation_params)[0]
             # render @participant.inspection
-            @participant_id = @participant.id
-            @order_id = @order.id
-            Invitation.create(participant_id: @participant_id, order_id: @order_id )
+            # @participant_id = @participant.id
+            # @order_id = @order.id
+            Invitation.create(participant_id: @participant.id, order_id: @order.id )
             redirect_to orders_path
         else
             render 'new'

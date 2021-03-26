@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
 
+    self.per_page = 2
     # Relationship with order_details
     has_many :details, class_name: 'Detail',dependent: :destroy
 
