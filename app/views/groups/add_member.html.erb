@@ -41,7 +41,10 @@
             </div>
             <% end %>
             <div id="member-results">
-
+              <% @members.each do |member| %>
+                    <p><%= member.full_name %></p>
+                    <%= link_to "Remove", group_destroy_member_path(member_id: member.id), :method=>"delete", data: {confirm: "Are you sure?"} %>
+                <% end %>
             </div>
         </div>
       </div>
