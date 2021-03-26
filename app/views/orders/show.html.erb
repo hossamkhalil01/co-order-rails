@@ -4,6 +4,22 @@
     <h2 style="margin-top: 2%;"> <%= @order.meal_type.capitalize() %> from <%= @order.restaurant %></h2>
     <h3> By: <%= @order.owner.first_name.capitalize %> <%= @order.owner.last_name.capitalize()%> </h3>
 
+        <% if @order.menu_image? %>
+        <%= image_tag @order.menu_image.url, style:"height: 200px;width: 300px;margin-left: 40%;" %>
+            <% else %>
+        <img src="https://menuready.com.au/wp-content/uploads/2017/12/DUMMY-MENU.png" alt="unknown-image" style="width: 70px;height: 70px;">
+        <% end %>
+
+
+    <br>
+    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#accepted-friends" style="margin-left:75%;padding:0%;width: 11%">
+        <%= @accepted_users.count %> friends accepted
+    </button>
+
+    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#invited-friends" style="padding:0%;width: 10%">
+        <%= @invited_users.count() %> friends invited
+    </button>
+
     <table class="table table-striped fs-4" style="margin-top: 3%;">
 
         <thead>
@@ -13,6 +29,7 @@
                 <th scope="col">Amount</th>
                 <th scope="col">Price</th>
                 <th scope="col">Comment</th>
+                <th scope="col">Action</th>
             </tr>
 
         </thead>
@@ -25,8 +42,17 @@
                 <td class="fs-5"> <%= detail.item %> </td>
                 <td class="fs-5"> <%= detail.amount %> </td>
                 <td class="fs-5"> <%= detail.price %> </td>
-                <td class="fs-5"> <%= detail.comment %> </td>
+                <td class="fs-5"> <%= detail.comment %> </td>              
+                <% if current_user.id == detail.orderer_id %>
+                    <td>
+                        <%= link_to "Delete", order_detail_path(@order,detail), method: :delete %>
+                        <%= link_to "Edit", edit_order_detail_path(@order,detail), method: :get %>
+                    </td>
+                <td class="fs-5"> </td>
+                <% end %>
+               
             </tr>
+
 
             <% end %>
         </tbody>
@@ -34,6 +60,11 @@
     </table>
 
 </div>
+
+<div class="row justify-content: center">
+    <%= will_paginate @order_details , renderer: BootstrapPagination::Rails %>
+<div>
+
 
 
 <%= form_with model: @detail , url: order_details_path(@order.id)  do |form| %>
@@ -48,3 +79,95 @@
 
 <%= form.submit %>
 <% end %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="invited-friends" tabindex="-1" aria-labelledby="invited-friendsLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="invited-friendsLabel">Invited friends</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="max-height:300px; overflow:auto">
+              
+        <% for friend in @invited_users %>
+        
+            <div class="row" style="top: 0%; left:0% ">
+                <div class="col-md-2">
+                    <% if User.find(friend.participant_id).image? %>
+                    <%= image_tag friend.image.url, style: 'height:70px;width:70;' %>
+                    <% else %>
+                    <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
+                    <% end %>
+                </div>
+                <div class="col-md-7">
+                    <span class="col-md-12"> <%= User.find(friend.participant_id).last_name %> </span>
+                    <br><br>
+              <% if current_user.id == @order.owner_id %>
+                    <%= link_to 'remove', friend_path(User.find(friend.participant_id)), method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+                </div>
+            </div>
+    
+        <% end %>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+ 
+
+
+<!-- Modal -->
+<div class="modal fade" id="accepted-friends" tabindex="-1" aria-labelledby="accepted-friendsLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="accepted-friendsLabel">Accepted-friends</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="max-height:300px; overflow:auto">
+        
+
+        <% for friend in @accepted_users %>
+        
+            <div class="row" style="top: 0%; left:0%">
+                <div class="col-md-2">
+                    <% if User.find(friend.participant_id).image? %>
+                    <%= image_tag friend.image.url, style: 'height:70px;width:70;' %>
+                    <% else %>
+                    <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
+                    <% end %>
+                </div>
+                <div class="col-md-7">
+                    <span class="col-md-12"> <%= User.find(friend.participant_id).last_name %> </span>
+                    <br><br>
+                    <%= link_to 'remove', friend_path(User.find(friend.participant_id)),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+                </div>
+            </div>
+    
+        <% end %>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+
+
+

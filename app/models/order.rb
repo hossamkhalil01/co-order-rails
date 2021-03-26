@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
 
+    self.per_page = 2
     # Relationship with order_details
     has_many :details, class_name: 'Detail',dependent: :destroy
 
@@ -9,6 +10,8 @@ class Order < ApplicationRecord
     # Relationship with order invitations
     has_many :invitations
     has_many :participants , class_name: 'User' , :through => :invitations
+
+    mount_uploader :menu_image, PictureUploader
 
     # Validation
     validates :status, presence: true, acceptance: { accept: ['active', 'finish' , 'cancel'] }

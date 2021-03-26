@@ -1,0 +1,27 @@
+<%= render 'layouts/navigation' %>
+<h1>Order Info</h1>
+
+<h2 style="margin-top: 2%;"> <%= @order.meal_type.capitalize() %> from <%= @order.restaurant %></h2>
+<h3> By: <%= @order.owner.first_name.capitalize %> <%= @order.owner.last_name.capitalize()%> </h3>
+
+<% if @order.menu_image? %>
+<%= image_tag @order.menu_image.url, style:"height: 200px;width: 300px;margin-left: 40%;" %>
+    <% else %>
+<img src="https://menuready.com.au/wp-content/uploads/2017/12/DUMMY-MENU.png" alt="unknown-image" style="width: 70px;height: 70px;">
+<% end %>
+
+<h1>Edit My Order Details</h1>
+<%= form_with model: @detail , url: order_detail_path(@detail.order_id,@detail.id)  do |form| %>
+<%= form.hidden_field "orderer_id", value: @detail.orderer_id %>
+
+<%= form.label :Amount%>
+<%= form.text_field :amount %>
+<%= form.label :Item%>
+<%= form.text_field :item %>
+<%= form.label :Price%>
+<%= form.text_field :price %>
+<%= form.label :Comment%>
+<%= form.text_area :comment, size: "30x5" %>
+
+<%= form.submit %>
+<% end %>
