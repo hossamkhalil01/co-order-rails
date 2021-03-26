@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get '/member', to: 'groups#add_member', as: 'add_member'
     post '/member', to:	'groups#create_member', as: 'create_member'
     delete '/member/:member_id', to: 'groups#destroy_member', as: 'destroy_member'
+    get 'search_member', to: 'groups#search'
   end
 
   resources :orders do

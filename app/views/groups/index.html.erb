@@ -7,7 +7,7 @@
     <div class="d-flex border justify-content-between">
         <div class="d-flex col-md-3 border">
             <div class="col-md-12">
-              <div class="my-groups">
+              <div>
                 <% @groups.each do |group| %>
                 <p><%=  group.name %></p>
                 <%= link_to "Edit", group_add_member_path(group) %>
@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-8 border">
             <div class="col-md-12">
-              <div class="my-friends">
+              <div>
                 <p> 
                 
                 </p>

@@ -8,4 +8,8 @@ class Group < ApplicationRecord
     has_many :members, class_name: "User", through: :memberships
     validates :name , presence: true,  format: {with: /[a-zA-Z]/}
 
+    def group_member?(id_of_member)
+        self.members.where(id: id_of_member).exists?
+    end
+
 end

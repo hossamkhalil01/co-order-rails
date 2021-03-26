@@ -1,13 +1,14 @@
-<%= form_with model: @member, url: group_add_member_path(@group_id) do |form| %>
-<div class="d-flex g-3 justify-content-sm-center">
-    <div class="col-1 align-self-center">
-        <%= form.label :member_email, "Add member to group", class: "col-form-label fw-bold" %>
+<div class="search-area">
+  <%= form_tag group_search_member_path, remote: true, method: :get do %>
+  <div class="form-group row">
+    <div class="col-sm-9 no-right-padding">
+      <%= text_field_tag :member, params[:member], placeholder: "Name or email",
+      autofocus: true, class: "form-control form-control-lg" %>
     </div>
-    <div class="col-6 align-self-center m-2">
-        <%= form.text_field :member_email, class: "form-control" %>
+    <div class="col-sm-3 no-left-padding">
+      <%= button_tag type: :submit, class: "btn btn-success" do %> <%= 'Search'
+      %> <% end %>
     </div>
-    <div class="col-1 align-self-center">
-        <%= form.submit "Add", class: "btn btn-primary" %>
-    </div>
+  </div>
+  <% end %>
 </div>
-<% end %>
