@@ -14,6 +14,6 @@ class Order < ApplicationRecord
     validates :status, presence: true, acceptance: { accept: ['active', 'finish' , 'cancel'] }
     validates :meal_type, presence: true, acceptance: { accept: ['breakfast', 'lunch' , 'dinner'] }
 
-    #* broadcast to home page after craeting order
-    after_create_commit -> { broadcast_append_to "orders" }
+    # broadcast to home page after craeting order
+    after_create_commit -> { broadcast_prepend_to "orders" }
 end 

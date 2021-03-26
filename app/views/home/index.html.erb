@@ -3,9 +3,7 @@
 <div class="container">
 
     <div class="latest-orders text-center">
-        <%= turbo_stream_from "orders" %>
 
-        <%= turbo_frame_tag "latest-order"  do %>
         <h3>Latest Orders</h3>
         <% if current_user.orders.first %>
         <% current_user.orders.all.each do |order| %>
@@ -14,9 +12,6 @@
         <% else %>
         <a href="#"> No Order Yet</a><br />
         <% end %>
-
-        <% end %>
-
 
     </div>
 

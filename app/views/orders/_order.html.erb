@@ -1,0 +1,16 @@
+<tr class=" text-center" id="<%= dom_id (order) %>">
+
+    <td class="fs-5"> <%=order.meal_type.capitalize() %> </td>
+    <td class="fs-5"> <%= order.restaurant %> </td>
+    <td class="fs-5"> <%= order.invitations.all.count() %> </td>
+    <td class="fs-5"> <%= order.invitations.where("accepted = true").count %> </td>
+    <td class="fs-5"> <%= order.status.capitalize()  %> </td>
+    <td class="fs-5"> <a href="<%=  order_path(order)%>">View</a>
+        <% if  order.status == "active" %>
+        <span> | </span>
+        <a href="<%=  order_update_status_path(order,"finish")%>">Finish</a>
+        <span> | </span>
+        <a href="<%=  order_update_status_path(order,"cancel")%>">Cancel</a>
+        <% end %>
+    </td>
+</tr>

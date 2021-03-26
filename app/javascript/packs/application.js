@@ -3,17 +3,16 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
 import "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
-import "channels"
-
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
-
+import Rails from "@rails/ujs"
 import "bootstrap"
+import "channels"
+import "controllers"
 import "../stylesheets/application"
 
-import "controllers"
+Rails.start()
+ActiveStorage.start()
+
+
+
