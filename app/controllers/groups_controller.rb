@@ -10,17 +10,41 @@ class GroupsController < ApplicationController
     @group = Group.new
   end
 
+  def search
+    if params[:member].present?
+      @group = current_user.groups.find(params[:group_id])
+      @members = User.search(params[:member])
+      @members = current_user.except_current_user(@members)
+      if @members
+        respond_to do |format|
+          format.js { render partial: 'groups/member_result' }
+        end
+      else
+        respond_to do |format|
+          flash.now[:alert] = "Couldn't find user"
+          format.js { render partial: 'groups/member_result' }
+        end
+      end    
+    else
+      respond_to do |format|
+        flash.now[:alert] = "Please enter a friend name or email to search"
+        format.js { render partial: 'users/member_result' }
+      end
+    end
+  end
+
   def add_member
     @groups = Group.all
     @member = current_user.groups.find(params[:group_id]).memberships.new
     @group_id = params[:group_id]
+    @current_group = Group.find(@group_id)
     @group = Group.new
     @members = Group.find(@group_id).members
   end
 
   def create_member
-    @member_id = User.where(email: member_params[:member_email])[0].id
-    @member = current_user.groups.find(params[:group_id]).memberships.new(member_id: @member_id)
+    @member = User.find(params[:member])
+    @member = current_user.groups.find(params[:group_id]).memberships.new(member_id: @member.id)
     @member.save
     redirect_to group_add_member_path
   end

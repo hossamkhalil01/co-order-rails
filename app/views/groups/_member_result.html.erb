@@ -1,0 +1,16 @@
+<div class="card card-header results-block">
+    <table class="col-md-12">
+      <tbody>
+        <tr>
+        <% @members.each do |member| %>
+          <% if  current_user.friends_with?(member.id) && !@group.group_member?(member.id)%>
+            <td><strong>P.P: </strong> <%= image_tag member.image.url, style: 'height:70px;width:70;' %></td>
+            <td><strong>Name: </strong> <%= member.full_name %></td>
+            <td><strong>Email: </strong> <%= member.email %></td>
+            <td><%= link_to 'Add', group_create_member_path(member: member), class: "btn btn-sm btn-success", method: :post %></td>
+          <% end %>
+          <tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
