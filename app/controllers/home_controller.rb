@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @groups = Group.all
+    @latest_orders = current_user.orders
   end
 end

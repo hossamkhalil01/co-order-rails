@@ -2,19 +2,14 @@
 
 <div class="container">
 
+
     <div class="latest-orders text-center">
-
         <h3>Latest Orders</h3>
-        <% if current_user.orders.first %>
-        <% current_user.orders.all.each do |order| %>
-        <a href="<%= orders_path(order) %>"> <%= order.meal_type  %> on <%= order.created_at  %></a><br />
+        <%= turbo_stream_from "orders" %>
+        <%= turbo_frame_tag  "orders" do %>
+        <%= render partial: "latest_order", collection: @latest_orders %>
         <% end %>
-        <% else %>
-        <a href="#"> No Order Yet</a><br />
-        <% end %>
-
     </div>
-
 
 
     <div class="friends-activity text-center">

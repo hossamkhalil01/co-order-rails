@@ -16,4 +16,5 @@ class Order < ApplicationRecord
 
     # broadcast to home page after craeting order
     after_create_commit -> { broadcast_prepend_to "orders" }
+    after_create_commit -> { broadcast_prepend_to "latest-orders" }
 end 
