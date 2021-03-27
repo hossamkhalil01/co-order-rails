@@ -1,0 +1,54 @@
+<%= render 'layouts/navigation' %>
+
+
+<div>
+    <h1 class="title">Friends</h1>
+    <%= form_with model: @friend, local: true do |form| %>
+    <div class="row">
+        <div class="col-md-3" style="margin-top: 2%; text-align: right; font-weight: 700;">
+            <%= form.label :email %><br>
+        </div>
+        <div class="col-md-4">
+            <%= form.email_field :email, class:'form-control' %>
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-primary" style="margin:auto; padding:0%; line-height:35px;" value="Add">
+            <% if flash[:error] %>
+            <div class="error"><%= flash[:error] %></div>
+            <% end %>
+            <% if flash[:notice] %>
+            <div class="notice"><%= flash[:notice] %></div>
+            <% end %>
+
+
+
+        </div>
+    </div>
+    <% end %>
+    <hr />
+    <h3 class="w-25"> Friends List </h3>
+    <div class="row " style="top:0%, left:0%">
+        <div class="col-md-12 row overflow-auto" style="top:0%, left:0% max-height: 400px;">
+
+            <% for friend in @friends %>
+            <div class="col-md-4">
+                <div class="row" style="top:0%, left:0%">
+                    <div class="col-md-3">
+                        <% if friend.image? %>
+                        <%= image_tag friend.image.url, style: 'height:70px;width:70;' %>
+                        <% else %>
+                        <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
+                        <% end %>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="col-md-12"> <%= friend.email %> </span><br><br>
+                        <%= link_to 'unfriend', friend_path(friend),
+                            method: :delete,
+                            ata: { confirm: 'Are you sure?' } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
