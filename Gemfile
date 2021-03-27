@@ -36,6 +36,9 @@ gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'omniauth-rails_csrf_protection'
 gem 'dotenv-rails'
 
+
+# cookis conflict
+gem 'activerecord-session_store'
 gem 'pry'
 # Socket
 gem 'hotwire-rails'
