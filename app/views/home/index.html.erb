@@ -5,20 +5,18 @@
 
     <div class="latest-orders text-center">
         <h3>Latest Orders</h3>
-        <%= turbo_stream_from "orders" %>
-        <%= turbo_frame_tag  "orders" do %>
         <%= render partial: "latest_order", collection: @latest_orders %>
-        <% end %>
+        <%=  current_user.first_name%>
     </div>
 
 
     <div class="friends-activity text-center">
-        <%= turbo_frame_tag "friends-activities"  do %>
         <h3>Friends Activity </h3>
-        <a href="#"> any thing</a><br />
-        <a href="#"> any thing</a><br />
-        <a href="#"> any thing</a><br />
-        <a href="#"> any thing</a><br />
+        <%= turbo_stream_from "friends-activities" %>
+        <%= turbo_frame_tag "friends-activities"  do %>
+        <% @friends.each do |friend| %>
+        <%= render partial: "friends_activities", collection: friend.orders.order(created_at: :desc).limit(5) %>
+        <% end %>
         <% end %>
     </div>
 
