@@ -13,15 +13,13 @@ class OrderStatusNotif < Noticed::Base
   # deliver_by :custom, class: "MyDeliveryMethod"
 
   # Add required params
-  #
   param :order
 
   # Define helper methods to make rendering easier.
   
   def message
     t(".message", owner_name: params[:order].owner.first_name,
-       status: params[:order].status
-    )
+       status: params[:order].status)
   end
   
   def url

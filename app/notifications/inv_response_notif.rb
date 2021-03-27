@@ -18,7 +18,7 @@ class InvResponseNotif < Noticed::Base
   # Define helper methods to make rendering easier.
   
   def message
-    t(".message", name: participant.first_name)
+    t(".message", name: params[:participant].first_name)
   end
   
   def url

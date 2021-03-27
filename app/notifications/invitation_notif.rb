@@ -2,7 +2,6 @@
 #
 # InvitationNotif.with(post: @post).deliver_later(current_user)
 # InvitationNotif.with(order: @order).deliver(User.all)
-
 class InvitationNotif < Noticed::Base
   # Add your delivery methods
   #
