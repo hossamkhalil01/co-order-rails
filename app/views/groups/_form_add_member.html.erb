@@ -1,14 +1,16 @@
 <div class="search-area">
-  <%= form_tag group_search_member_path, remote: true, method: :get do %>
+  <%= form_tag group_search_member_path, id:"form", remote: true, method: :get do %>
   <div class="form-group row">
     <div class="col-sm-9 no-right-padding">
       <%= text_field_tag :member, params[:member], placeholder: "Name or email",
       autofocus: true, class: "form-control form-control-lg" %>
     </div>
-    <div class="col-sm-3 no-left-padding">
-      <%= button_tag type: :submit, class: "btn btn-success" do %> <%= 'Search'
+    <div class="col-sm-3 no-left-padding d-none">
+      <%= button_tag type: :submit, class: "btn btn-success", do %> <%= 'Search'
       %> <% end %>
     </div>
   </div>
   <% end %>
 </div>
+
+
