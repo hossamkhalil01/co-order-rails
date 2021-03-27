@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
     end 
 
     def show 
-        @order = current_user.orders.find(params[:id])
+        @order = Order.find(params[:id])
         @order_details = @order.details.all.paginate(page: params[:page])
         @detail = Detail.new
         @participants = @order.participants.all
@@ -19,20 +19,6 @@ class OrdersController < ApplicationController
         @order = Order.new
     end
 
-    def create 
-        @order = Order.new({"meal"=>orders_path[:meal] , "restaurant_name"=>orders_path[:restaurant_name] ,"menu_image"=>orders_path[:menu_image] })
-        @order.user_id = current_user.id
-        @order.save
-        @owner=current_user.first_name
-        if @order.save
-           
-            redirect_to "/orders/#{@order.id}/details"
-        else
-            render 'new'
-        end
-       
-    end
-
     def update_status
 
         @order = Order.find(params[:order_id])
@@ -42,7 +28,7 @@ class OrdersController < ApplicationController
         
             @order.status = params[:status]
             @order.save
-        
+            OrderStatusNotif.with(order: @order).deliver_later(@order.participants)
         end
 
         redirect_to orders_path
@@ -58,21 +44,19 @@ class OrdersController < ApplicationController
 
         if @order.save
             Invitation.create(participant_id: @participant.id, order_id: @order.id )
+            InvitationNotif.with(order: @order).deliver_later(@order.participants)
+            
             redirect_to orders_path
         else
             render 'new'
         end
     end
 
+
     private
 
-    
-      
-
-   
-
     def order_params
-      params.require(:order).permit(:meal_type, :menu_image, :restaurant)
+        params.require(:order).permit(:meal_type, :menu_image, :restaurant)
     end
 
     def invitation_params

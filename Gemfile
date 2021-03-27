@@ -40,12 +40,16 @@ gem 'pry'
 # Socket
 gem 'hotwire-rails'
 
-# Image uploading
+# Image uploading 
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 
+# pagination
 gem 'bootstrap-will_paginate'
+
+# notifications
+gem "noticed", "~> 1.3"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -83,3 +87,4 @@ gem 'fog'
 # Styling
 gem 'will_paginate', '~> 3.3'
 #gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
+
