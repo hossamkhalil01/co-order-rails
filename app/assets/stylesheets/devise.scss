@@ -1,13 +1,5 @@
-// .row {
-//   position: relative;
-//   top: 50%;
-//   left: 40%;
-// }
-
 .row {
   margin-top: 15px;
-  // position: relative;
-  // left: 50%;
 }
 
 .btn {
@@ -16,7 +8,6 @@
   border: none;
   border-radius: 25px;
   margin: 5px 0;
-  opacity: 0.85;
   display: inline-block;
   font-size: 17px;
   line-height: 20px;
@@ -31,6 +22,7 @@
 .fb {
   background-color: #3b5998;
   color: white;
+  padding: 10px;
 }
 
 .google {
@@ -47,4 +39,24 @@
 .input[type="submit"] {
   color: white;
   cursor: pointer;
+}
+
+.devise {
+  background-image: url("122031659-greek-food-background-traditional-different-greek-dishes-top-view-.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+}
+
+* {
+  font-size: large;
+}
+
+a {
+  text-decoration: none;
+}
+html {
+  height: 100%;
 }
