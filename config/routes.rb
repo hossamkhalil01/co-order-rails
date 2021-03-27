@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-  
   root to: "home#index"
+
   devise_for :users,  controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :home
-  resources :users
   resources :friends
+  resources :users
+
   resources :groups do
     get '/member', to: 'groups#add_member', as: 'add_member'
     post '/member', to:	'groups#create_member', as: 'create_member'

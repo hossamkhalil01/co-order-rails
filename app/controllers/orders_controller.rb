@@ -10,12 +10,28 @@ class OrdersController < ApplicationController
         @order = current_user.orders.find(params[:id])
         @order_details = @order.details.all.paginate(page: params[:page])
         @detail = Detail.new
-        @invited_users = @order.invitations.all
-        @accepted_users = @order.invitations.where("accepted = true")
-        # 
-        
+        @participants = @order.participants.all
+        @accepted_invitations = @order.invitations.where("accepted = true")
 
     end 
+
+    def new
+        @order = Order.new
+    end
+
+    def create 
+        @order = Order.new({"meal"=>orders_path[:meal] , "restaurant_name"=>orders_path[:restaurant_name] ,"menu_image"=>orders_path[:menu_image] })
+        @order.user_id = current_user.id
+        @order.save
+        @owner=current_user.first_name
+        if @order.save
+           
+            redirect_to "/orders/#{@order.id}/details"
+        else
+            render 'new'
+        end
+       
+    end
 
     def update_status
 
@@ -38,13 +54,9 @@ class OrdersController < ApplicationController
     
     def create
         @order = current_user.orders.new(order_params)
-        # puts @order.inspect
         @participant = User.where(invitation_params)[0]
 
         if @order.save
-            # render @participant.inspection
-            # @participant_id = @participant.id
-            # @order_id = @order.id
             Invitation.create(participant_id: @participant.id, order_id: @order.id )
             redirect_to orders_path
         else
