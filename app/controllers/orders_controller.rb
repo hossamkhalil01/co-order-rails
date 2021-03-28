@@ -55,7 +55,7 @@ class OrdersController < ApplicationController
                 invited_user.order_id = @order.id
                 invited_user.participant_id = friend_id
                 invited_user.save
-                InvitationNotif.with(order: @order).deliver_later(User.find(participant_id))
+                InvitationNotif.with(order: @order).deliver_later(User.find(friend_id))
             end
 
             @@invited_members_arr = []

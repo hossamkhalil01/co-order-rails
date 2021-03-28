@@ -10,8 +10,6 @@
             Start New Order
         </a>
     </div>
-    <%= turbo_stream_from "orders" %>
-    <%= turbo_frame_tag  "orders" do %>
     <table class="table table-striped fs-4">
 
         <thead>
@@ -46,14 +44,8 @@
             </tr>
 
             <% end %>
-          <%= will_paginate @orders , class: "d-flex justify-content-center" %>
         </tbody>
-        <div style="display: none;">
-            <%= render @orders %>
-        </div>
-
-
-
     </table>
-    <% end %>
+
+    <%= will_paginate @orders , class: "d-flex justify-content-center" %>
 </div>
