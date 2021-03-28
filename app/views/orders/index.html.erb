@@ -10,7 +10,8 @@
             Start New Order
         </a>
     </div>
-
+    <%= turbo_stream_from "orders" %>
+    <%= turbo_frame_tag  "orders" do %>
     <table class="table table-striped fs-4">
 
         <thead>
@@ -27,7 +28,7 @@
         <tbody>
 
             <% for order in @orders do %>
-
+            <tr class=" text-center" id="<%= dom_id (order) %>">
             <tr class=" text-center">
                 <td class="fs-5"> <%=order.meal_type.capitalize() %> </td>
                 <td class="fs-5"> <%= order.restaurant %> </td>
@@ -45,12 +46,14 @@
             </tr>
 
             <% end %>
-
+          <%= will_paginate @orders , class: "d-flex justify-content-center" %>
         </tbody>
+        <div style="display: none;">
+            <%= render @orders %>
+        </div>
+
+
 
     </table>
-
+    <% end %>
 </div>
-
-
-    <%= will_paginate @orders , class: "d-flex justify-content-center" %>

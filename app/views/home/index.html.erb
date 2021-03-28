@@ -1,20 +1,24 @@
 <%= render 'layouts/navigation' %>
 
 <div class="container">
+
+
     <div class="latest-orders text-center">
-    <h3>Latest Orders</h3>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
+        <h3>Latest Orders</h3>
+        <%= render partial: "latest_order", collection: @latest_orders %>
+      
+
     </div>
+
 
     <div class="friends-activity text-center">
-    <h3>Friends Activity </h3>
-
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
-    <a href="#"> any thing</a><br/>
+        <h3>Friends Activity </h3>
+        <%= turbo_stream_from "friends-activities" %>
+        <%= turbo_frame_tag "friends-activities"  do %>
+        <% @friends.each do |friend| %>
+        <%= render partial: "friends_activities", collection: friend.orders.order(created_at: :desc).limit(5) %>
+        <% end %>
+        <% end %>
     </div>
+
 </div>
