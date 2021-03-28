@@ -33,7 +33,7 @@
                 <%= text_field_tag :member, params[:member], placeholder: "Name or email" , autofocus: true,
                   class: "form-control" %>
               </div>
-              <div class="col-2 align-self-center m-auto">
+              <div class="col-2 align-self-center m-auto d-none">
                 <%= button_tag type: :submit, class: "btn btn-success btn-lg" do %>
                   <%= 'Search' %>
                     <% end %>
@@ -41,12 +41,18 @@
             </div>
             <% end %>
             <div id="member-results">
+              
+            </div>
               <% @members.each do |member| %>
                     <p><%= member.full_name %></p>
                     <%= link_to "Remove", group_destroy_member_path(member_id: member.id), :method=>"delete", data: {confirm: "Are you sure?"} %>
-                <% end %>
-            </div>
+              <% end %>
         </div>
       </div>
     </div>
     </div>
+<%= javascript_tag do %>
+  document.getElementById('member').addEventListener('keyup', () => {
+  document.getElementsByClassName('btn')[1].click();
+});
+<% end %>
