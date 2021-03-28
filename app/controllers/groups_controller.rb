@@ -89,4 +89,10 @@ class GroupsController < ApplicationController
   def member_params
     params.require(:membership).permit(:member_email)
   end
+
+
+
+
+ 
+
 end
