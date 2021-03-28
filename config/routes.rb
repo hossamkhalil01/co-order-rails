@@ -18,5 +18,10 @@ Rails.application.routes.draw do
     get '/:status', to: 'orders#update_status', as: 'update_status'
     resources :details
   end 
-                                         
+
+  resources :notifications do 
+    collection do 
+    end 
+  end
+
 end

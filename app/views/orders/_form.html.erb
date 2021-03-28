@@ -5,70 +5,61 @@
 
 
 <div class="row col-md-12" style="top:0%; left:0%; ">
-        <div class="row col-md-6 " style="top:0%; left:0% ; ">
-              <%= form_with model: @order do |form| %>
-                  <p>
-                    <%= form.label :meal_type %><br>
-                    <%= form.select :meal_type, ['breakfast', 'lunch', 'dinner'], selected: 'lunch' %>
-                  </p>
+    <div class="row col-md-6 " style="top:0%; left:0% ; ">
+        <%= form_with model: @order do |form| %>
+        <p>
+            <%= form.label :meal_type %><br>
+            <%= form.select :meal_type, ['breakfast', 'lunch', 'dinner'], selected: 'lunch' %>
+        </p>
 
-                  <p>
-                    <%= form.label :restaurant %><br>
-                    <%= form.text_field :restaurant %>
-                  </p>
-                  
-                  <p>
-                    <%= form.label :Friends %><br>
-                    <%= form.text_field :email %>
-                  </p>
-                  <button class="btn btn-primary" style="width:20%">Check</button>
+        <p>
+            <%= form.label :restaurant %><br>
+            <%= form.text_field :restaurant %>
+        </p>
 
-                  <p>
-                    <%= form.label :menu_image %>
-                    <%= form.file_field :menu_image, accept: 'image/jpeg, image/gif, image/png, /image/jpg' %>
-                  </p>
+        <p>
+            <%= form.label :Friends %><br>
+            <%= form.text_field :email %>
+        </p>
+        <button class="btn btn-primary" style="width:20%">Check</button>
 
-                  <p>
-                    <%= form.submit %>
-                  </p>
-                <% end %>
+        <p>
+            <%= form.label :menu_image %>
+            <%= form.file_field :menu_image, accept: 'image/jpeg, image/gif, image/png, /image/jpg' %>
+        </p>
 
-        </div>
+        <p>
+            <%= form.submit %>
+        </p>
+        <% end %>
 
-
+    </div>
 
 
 
 
-        <div class="col-md-6 row overflow-auto" style="top:0%; left:0% ; max-height: 400px;">
-          <div>Invited-Friends-List</div>
-          <% for friend in User.all %>
-            <div class="col-md-4">
-                <div class="row" style="top:0%; left:0%">
-                    <div class="col-md-3">
-                        <% if friend.image? %>
-                          <%= image_tag friend.image.url, style: 'height:70px;width:70;' %>
-                        <% else %>
-                          <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
-                        <% end %>
-                    </div>
-                    <div class="col-md-7">
-                        <span class="col-md-12"> <%= friend.last_name %> </span><br><br>
-                        <%= link_to 'unfriend', friend_path(friend), method: :delete, data: { confirm: 'Are you sure?' } %>
-                    </div>
+
+
+    <div class="col-md-6 row overflow-auto" style="top:0%; left:0% ; max-height: 400px;">
+        <div>Invited-Friends-List</div>
+        <% for friend in User.all %>
+        <div class="col-md-4">
+            <div class="row" style="top:0%; left:0%">
+                <div class="col-md-3">
+                    <% if friend.image? %>
+                    <%= image_tag friend.image.url, style: 'height:70px;width:70;' %>
+                    <% else %>
+                    <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
+                    <% end %>
+                </div>
+                <div class="col-md-7">
+                    <span class="col-md-12"> <%= friend.last_name %> </span><br><br>
+                    <%= link_to 'unfriend', friend_path(friend), method: :delete, data: { confirm: 'Are you sure?' } %>
                 </div>
             </div>
-          <% end %>
-
         </div>
-        
+        <% end %>
+
+    </div>
+
 </div>
-
-
-
-
-
-
-
-
-
