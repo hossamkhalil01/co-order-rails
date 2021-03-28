@@ -31,9 +31,9 @@
                 </div>
                 <div class="col-sm-6 m-2 align-self-center m-auto">
                     <%= text_field_tag :member, params[:member], placeholder: "Name or email" , autofocus: true,
-                  class: "form-control" %>
+                    class: "form-control" %>
                 </div>
-                <div class="col-2 align-self-center m-auto">
+                <div class="col-2 align-self-center m-auto d-none">
                     <%= button_tag type: :submit, class: "btn btn-success btn-lg" do %>
                     <%= 'Search' %>
                     <% end %>
@@ -49,9 +49,10 @@
         </div>
     </div>
 </div>
-</div>
 
 
 <%= javascript_tag do %>
-document.getElementById('keyup').addEventListener('change', () => document.getElementsByTagName('form')[1].submit());
+document.getElementById('member').addEventListener('keyup', () => {
+document.getElementsByClassName('btn')[1].click();
+});
 <% end %>

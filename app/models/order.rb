@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
 
-    self.per_page = 2
+    self.per_page = 10
     # Relationship with order_details
     has_many :details, class_name: 'Detail',dependent: :destroy
 
@@ -16,4 +16,7 @@ class Order < ApplicationRecord
     # Validation
     validates :status, presence: true, acceptance: { accept: ['active', 'finish' , 'cancel'] }
     validates :meal_type, presence: true, acceptance: { accept: ['breakfast', 'lunch' , 'dinner'] }
+
+    # broadcast to home page after craeting order
+    after_create_commit -> { broadcast_prepend_to "friends-activities" }
 end 

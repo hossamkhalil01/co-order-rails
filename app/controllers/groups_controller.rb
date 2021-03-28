@@ -27,14 +27,16 @@ class GroupsController < ApplicationController
       end    
     else
       respond_to do |format|
+        @group = current_user.groups.find(params[:group_id])
+        @members = []
         flash.now[:alert] = "Please enter a friend name or email to search"
-        format.js { render partial: 'users/member_result' }
+        format.js { render partial: 'groups/member_result' }
       end
     end
   end
 
   def add_member
-    @groups = Group.all
+    @groups = current_user.groups.all
     @member = current_user.groups.find(params[:group_id]).memberships.new
     @group_id = params[:group_id]
     @current_group = Group.find(@group_id)
@@ -87,4 +89,10 @@ class GroupsController < ApplicationController
   def member_params
     params.require(:membership).permit(:member_email)
   end
+
+
+
+
+ 
+
 end
