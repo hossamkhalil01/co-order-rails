@@ -13,8 +13,9 @@ Rails.application.routes.draw do
     delete '/member/:member_id', to: 'groups#destroy_member', as: 'destroy_member'
     get 'search_member', to: 'groups#search'
   end
-
   resources :orders do
+    get '/accept_invitation', to: 'orders#accept_invitation', as: 'accept_invitation'
+    get '/summary', to: 'orders#summary', as: 'order_summary'
     get '/:status', to: 'orders#update_status', as: 'update_status'
     delete 'invitation/:invitation_id', to: 'orders#destroy_invitation', as: 'destroy_invitation'
     resources :details

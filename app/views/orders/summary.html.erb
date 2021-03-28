@@ -1,0 +1,26 @@
+<%= render 'layouts/navigation' %>
+
+<div class="container ">
+    <p class="">
+    <h2>this order is currently <%= @order_summary.status%> </h2>
+    <h5><%= User.find(@order_summary.owner_id).full_name%></h5>
+    order a <%= @order_summary.meal_type %> from <%= @order_summary.restaurant %> and this is the menue
+
+    <br />
+    <% if @order_summary.menu_image? %>
+    <%= image_tag @order_summary.menu_image.url, style:"height: 200px;width: 300px;margin-left: 40%;" %>
+    <% else %>
+    <img src="https://menuready.com.au/wp-content/uploads/2017/12/DUMMY-MENU.png" alt="unknown-image" style="width: 70px;height: 70px;">
+    <% end %>
+
+    <br />
+    and asked
+    <% @all_order_participants.each do | participate| %>
+
+    <b> <%= participate.full_name %> ,</b>
+    <% end %>
+    to join him
+    </p>
+
+    <%= link_to "Accept Invitation", order_accept_invitation_path(@order_summary.id), method: :get , data: { confirm: 'Are you sure ?' } %>
+</div>

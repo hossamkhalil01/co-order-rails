@@ -22,8 +22,26 @@ class OrdersController < ApplicationController
                 @authorized = true
             end
         end
+        if ! ( @authorized )
+           redirect_to order_order_summary_path(params[:id])
+        end
     end 
     
+    # order_accept_invitation GET   /orders/:order_id/accept_invitation(.:format)    orders#accept_invitation
+    def accept_invitation
+        @invitation = Invitation.where(participant_id: current_user.id , order_id: params[:order_id])[0]
+        @invitation.accepted = true 
+        @invitation.save
+        redirect_to  order_path(params[:order_id])
+    end
+
+
+    # order_order_summary GET      /orders/:order_id/summary(.:format)    orders#summary
+    def summary
+        @order_summary = Order.find(params[:order_id])
+        @all_order_participants = @order_summary.participants 
+    end
+
     def new
         @order = current_user.orders.new
         @@invited_members_arr = []
@@ -66,6 +84,7 @@ class OrdersController < ApplicationController
     end
 
 
+<<<<<<< HEAD
     # order_destroy_invitation DELETE   /orders/:order_id/invitation/:invitation_id(.:format) 
     def destroy_invitation
         @order = Order.find(params[:order_id])
@@ -154,6 +173,8 @@ class OrdersController < ApplicationController
     private
 
 
+=======
+>>>>>>> 512516024b24023091256d9db7af82745df6ed6d
     def order_params
         params.require(:order).permit(:meal_type, :menu_image, :restaurant)
     end
