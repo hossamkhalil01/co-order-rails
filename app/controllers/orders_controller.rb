@@ -73,6 +73,36 @@ class OrdersController < ApplicationController
         end
         redirect_to order_path(params[:order_id])    
     end
+    # search_invited GET      /order_invited_members(.:format)  orders#search_invited
+    def search_invited
+        if params[:invited].present?
+            # @group = current_user.groups.find(params[:group_id])
+            @invited_members = current_user.friends.search(params[:invited])
+            @invited_members = current_user.except_current_user(@invited_members)
+            # render @invited_members.inspection
+            if @invited_members
+              respond_to do |format|
+                
+                # format.html { render partial: 'orders/order_invited_member' }
+                format.js { render partial: 'orders/order_invited_member' }
+              end
+            else
+              respond_to do |format|
+                flash.now[:alert] = "Couldn't find user"
+                format.js { render partial: 'orders/order_invited_member' }
+              end
+            end    
+          else
+            respond_to do |format|
+              flash.now[:alert] = "Please enter a friend name or email to search"
+              format.js { render partial: 'users/member_result' }
+            end
+          end
+    end
+
+
+
+
 
     private
 

@@ -60,24 +60,36 @@
 
 
         <div class="col-md-6 row overflow-auto" style="top:0%; left:0% ; max-height: 400px;">
-          <div>Invited-Friends-List</div>
-          <% for friend in User.all %>
-            <div class="col-md-4">
-                <div class="row" style="top:0%; left:0%">
-                    <div class="col-md-3">
-                        <% if friend.image? %>
-                          <%= image_tag friend.image.url, style: 'height:70px;width:70;' %>
-                        <% else %>
-                          <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
-                        <% end %>
+              <div class="row col-md-12">
+
+                  <div class="search-area">
+                    <%= form_tag search_invited_path, remote: true, method: :get do %>
+                    <div class="form-group row">
+                      <div class="col-sm-9 no-right-padding">
+                        <%= text_field_tag :invited , params[:invited], placeholder: "Add friend or group ",
+                        autofocus: true, class: "form-control form-control-lg" %>
+                      </div>
+                      <div class="col-sm-3 no-left-padding">
+                        <%= button_tag type: :submit, class: "btn btn-success" do %> <%= 'Search'
+                        %> <% end %>
+                      </div>
                     </div>
-                    <div class="col-md-7">
-                        <span class="col-md-12"> <%= friend.last_name %> </span><br><br>
-                        <%= link_to 'unfriend', friend_path(friend), method: :delete, data: { confirm: 'Are you sure?' } %>
-                    </div>
+                    <% end %>
+                  </div>
+
+                 
+
+              </div>
+
+
+
+              <div class="row col-md-12">
+               <div id="order-member-result">
+               some result here 
                 </div>
-            </div>
-          <% end %>
+                        
+              </div>
+          
 
         </div>
         

@@ -1,0 +1,20 @@
+
+
+
+<%  invited_members.each do |member| %>
+    <div class="col-md-4">
+        <div class="row" style="top:0%; left:0%">
+            <div class="col-md-3">
+                <% if member.image? %>
+                <%= image_tag member.image.url, style: 'height:70px;width:70;' %>
+                <% else %>
+                <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
+                <% end %>
+            </div>
+            <div class="col-md-7">
+                <span class="col-md-12"> <%= member.full_name %> </span><br><br>
+                <%= link_to 'unfriend', friend_path(friend), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </div>
+        </div>
+    </div>
+<% end %>
