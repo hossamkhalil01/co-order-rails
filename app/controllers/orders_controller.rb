@@ -47,19 +47,8 @@ class OrdersController < ApplicationController
     
     def create
         @order = current_user.orders.new(order_params)
-        # invited_friends = []
         if @order.save
-            # inviteGroup_params[:test_groups].each do |group_id|
-            #     if (! (group_id.empty?) )
-            #         Group.find(group_id.to_i).members.each do |friend|
-            #             invited_friends.push(friend.id)
-            #         end
-            #     end
-            # end
-            # tmp_friend = test_params[:test_users].reject { |c| c.empty? } 
-            # invited_friends += tmp_friend.map(&:to_i)
-            # invited_friends.uniq! 
-        
+      
             @@invited_members_arr.each do |friend_id|             
                 invited_user = Invitation.new
                 invited_user.order_id = @order.id
@@ -106,7 +95,6 @@ class OrdersController < ApplicationController
         else
             respond_to do |format|
                 # flash.now[:alert] = "Please enter a friend name or email to search"
-                # puts " hiiiiiiiii"
                 @invited_members = []
                 @invited_groups = []
                 format.js { render partial: 'orders/order_invited_member' }
@@ -182,15 +170,6 @@ class OrdersController < ApplicationController
         params.require(:order).permit(:test_users=>[])
     end
 
-    # def final_params
-    #     params.require(:order).permit(:final_users=>[]).mer
-    # end
-    # def users_params
-    #     puts params.inspect
-    #     puts  params.require(:order).permit(:users).inspect
-    #     params.require(:order).permit(:users)
-        
-
-    # end
+    
 
 end

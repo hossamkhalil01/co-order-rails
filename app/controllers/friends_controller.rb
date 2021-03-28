@@ -35,13 +35,5 @@ class FriendsController < ApplicationController
     end 
 
 
-
-    def listF
-      # @users = User.all
-     
-      @friends = current_user.friends
-      # format.json { render json: @friends }
-      render :json => @friends, :include => :friend
-    end 
     
 end
