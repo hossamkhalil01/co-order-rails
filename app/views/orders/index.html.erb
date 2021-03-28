@@ -52,11 +52,5 @@
 
 </div>
 
-<div class="row justify-content: center">
-    <%= will_paginate @orders %>
-    <%
-=begin%>
-    <%= will_paginate @orders , renderer: BootstrapPagination::Rails %>
-    <%
-=end%>
-</div>
+
+    <%= will_paginate @orders , class: "d-flex justify-content-center" %>

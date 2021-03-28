@@ -17,11 +17,27 @@
                     <%= form.text_field :restaurant %>
                   </p>
                   
-                  <p>
+    
+                  <%
+=begin%>
+ <p>
                     <%= form.label :Friends %><br>
                     <%= form.text_field :email %>
-                  </p>
-                  <button class="btn btn-primary" style="width:20%">Check</button>
+                  </p>  
+<%
+=end%>
+
+                  <p>
+                    <%= form.label :Groups %><br>
+                   <%= form.collection_select :test_groups, current_user.groups.all , :id, :name ,{ :prompt => "Please Invite your groups"},
+                                   { :multiple => true}%>
+                  </p> 
+
+                  <p>
+                    <%= form.label :Friends %><br>
+                    <%= form.collection_select :test_users, current_user.friends.all , :id, :email ,{ :prompt => "Please Invite your friends"},
+                                   { :multiple => true }%>
+                  </p> 
 
                   <p>
                     <%= form.label :menu_image %>
@@ -32,6 +48,9 @@
                     <%= form.submit %>
                   </p>
                 <% end %>
+
+
+
 
         </div>
 
@@ -63,6 +82,7 @@
         </div>
         
 </div>
+
 
 
 

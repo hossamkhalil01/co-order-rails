@@ -1,6 +1,18 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[ show edit update destroy ]
 
+  def listG
+    @groups = Group.where(member_id: current_user.id)
+    render :json => @groups
+  end
+
+  def listGF
+    @group = Group.where(name: params[:name]).first
+    @groups = Membership.where(group_id: @group.id)
+    render :json => @groups, :include => :user
+  end
+
+
   def index
     @groups = Group.all
     @group = Group.new
@@ -87,4 +99,10 @@ class GroupsController < ApplicationController
   def member_params
     params.require(:membership).permit(:member_email)
   end
+
+
+
+
+ 
+
 end

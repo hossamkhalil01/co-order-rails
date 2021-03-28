@@ -17,6 +17,14 @@ Rails.application.routes.draw do
   resources :orders do
     get '/:status', to: 'orders#update_status', as: 'update_status'
     resources :details
-  end 
-                                         
+    delete 'invitation/:invitation_id', to: 'orders#destroy_invitation', as: 'destroy_invitation'
+  end
+  
+ 
+          
+  
+  get 'friends_list' => 'friends#listF'     
+  get 'groups_list' => 'groups#listG'     
+  get 'group_friend_list/:name' => 'groups#listGF'  
+
 end
