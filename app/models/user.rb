@@ -18,6 +18,9 @@ class User < ApplicationRecord
   #mount image column to image directory
   mount_uploader :image, PictureUploader
 
+  # Notifications
+  has_many :notifications, as:   :recipient
+
   def full_name
     return "#{first_name} #{last_name}" if first_name || last_name
   end

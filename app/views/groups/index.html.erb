@@ -7,22 +7,22 @@
     <div class="d-flex border justify-content-between">
         <div class="d-flex col-md-3 border">
             <div class="col-md-12">
-              <div>
-                <% @groups.each do |group| %>
-                <p><%=  group.name %></p>
-                <%= link_to "Edit", group_add_member_path(group) %>
-                <%= link_to "Delete", group_path(group), method: :delete, data: {confirm: "Are you sure?"} %>
-                <% end %>
-            </div>
+                <div>
+                    <% @groups.each do |group| %>
+                    <p><%=  group.name %></p>
+                    <%= link_to "Edit", group_add_member_path(group) %>
+                    <%= link_to "Delete", group_path(group), method: :delete, data: {confirm: "Are you sure?"} %>
+                    <% end %>
+                </div>
             </div>
         </div>
         <div class="col-md-8 border">
             <div class="col-md-12">
-              <div>
-                <p> 
-                
-                </p>
-            </div>
+                <div>
+                    <p>
+
+                    </p>
+                </div>
             </div>
         </div>
     </div>

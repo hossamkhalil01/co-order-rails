@@ -31,3 +31,12 @@
 
 en:
   hello: "Hello world"
+  notifications:
+    invitation_notif:
+      message: "%{owner_name} has invited you for %{type}"
+
+    order_status_notif:
+      message: "%{owner_name} has %{status}ed the order"
+
+    inv_response_notif:
+      message: "%{name} has joined your order"

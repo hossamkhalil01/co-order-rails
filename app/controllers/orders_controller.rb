@@ -8,12 +8,12 @@ class OrdersController < ApplicationController
     end 
 
     def show 
-        #*************** check accpted or owner == current 
+        # *************** check accpted or owner == current 
         @order = Order.find(params[:id])
         @order_details = @order.details.all.paginate(page: params[:page])
         @detail = Detail.new
-        @pending_invitations = @order.invitations.where("accepted = false")
-        @accepted_invitations = @order.invitations.where("accepted = true")
+        @pending_invitations = @order.invitations.pending_invitations
+        @accepted_invitations = @order.invitations.accepted_invitations
         # authorized
         @authorized = false 
         current_user.id == @order.owner_id ?  @authorized = true :  @authorized = false 
@@ -23,8 +23,13 @@ class OrdersController < ApplicationController
             end
         end
     end 
-
     
+    def new
+        @order = current_user.orders.new
+        @@invited_members_arr = []
+    end
+    
+
     def update_status
 
         @order = Order.find(params[:order_id])
@@ -34,26 +39,23 @@ class OrdersController < ApplicationController
         
             @order.status = params[:status]
             @order.save
-        
+            OrderStatusNotif.with(order: @order).deliver_later(@order.participants)
         end
 
         redirect_to orders_path
     end 
 
-    def new
-        @order = current_user.orders.new
-        @@invited_members_arr = []
-    end
-    
+
     def create
         @order = current_user.orders.new(order_params)
         if @order.save
-      
+            
             @@invited_members_arr.each do |friend_id|             
                 invited_user = Invitation.new
                 invited_user.order_id = @order.id
                 invited_user.participant_id = friend_id
                 invited_user.save
+                InvitationNotif.with(order: @order).deliver_later(User.find(participant_id))
             end
 
             @@invited_members_arr = []
@@ -62,7 +64,6 @@ class OrdersController < ApplicationController
             render 'new'
         end
     end
-
 
 
     # order_destroy_invitation DELETE   /orders/:order_id/invitation/:invitation_id(.:format) 
@@ -148,19 +149,15 @@ class OrdersController < ApplicationController
                 end
              end
         end  
-        puts "fix your db "
     end
 
     private
 
 
     def order_params
-      params.require(:order).permit(:meal_type, :menu_image, :restaurant)
+        params.require(:order).permit(:meal_type, :menu_image, :restaurant)
     end
 
-    # def invitUser_params
-    #     params.require(:order).permit(:email)
-    # end
 
     def inviteGroup_params
         params.require(:order).permit(:test_groups=>[])
@@ -169,7 +166,5 @@ class OrdersController < ApplicationController
     def test_params
         params.require(:order).permit(:test_users=>[])
     end
-
-    
 
 end
