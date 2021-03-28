@@ -52,12 +52,7 @@
     </div>
     </div>
 <%= javascript_tag do %>
-  console.log(document.getElementsByClassName('btn'));
   document.getElementById('member').addEventListener('keyup', () => {
   document.getElementsByClassName('btn')[1].click();
-  $("#member-results").show();
 });
-
-  
-
 <% end %>
