@@ -84,6 +84,7 @@ class OrdersController < ApplicationController
     end
 
 
+<<<<<<< HEAD
     # order_destroy_invitation DELETE   /orders/:order_id/invitation/:invitation_id(.:format) 
     def destroy_invitation
         @order = Order.find(params[:order_id])
@@ -172,6 +173,8 @@ class OrdersController < ApplicationController
     private
 
 
+=======
+>>>>>>> 512516024b24023091256d9db7af82745df6ed6d
     def order_params
         params.require(:order).permit(:meal_type, :menu_image, :restaurant)
     end
