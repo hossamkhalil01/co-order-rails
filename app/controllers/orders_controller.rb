@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
     
+    @@invited_members_arr = []
 
     def index
         # @orders = current_user.orders.all
@@ -7,12 +8,20 @@ class OrdersController < ApplicationController
     end 
 
     def show 
-        @order = current_user.orders.find(params[:id])
+        #*************** check accpted or owner == current 
+        @order = Order.find(params[:id])
         @order_details = @order.details.all.paginate(page: params[:page])
         @detail = Detail.new
-        @participants = @order.participants.all
+        @pending_invitations = @order.invitations.where("accepted = false")
         @accepted_invitations = @order.invitations.where("accepted = true")
-
+        # authorized
+        @authorized = false 
+        current_user.id == @order.owner_id ?  @authorized = true :  @authorized = false 
+        @accepted_invitations.each do |invitation|
+            if invitation.participant_id == current_user.id  
+                @authorized = true
+            end
+        end
     end 
 
     
@@ -33,29 +42,32 @@ class OrdersController < ApplicationController
 
     def new
         @order = current_user.orders.new
+        @@invited_members_arr = []
     end
     
     def create
         @order = current_user.orders.new(order_params)
-        invited_friends = []
+        # invited_friends = []
         if @order.save
-            inviteGroup_params[:test_groups].each do |group_id|
-                if (! (group_id.empty?) )
-                    Group.find(group_id.to_i).members.each do |friend|
-                        invited_friends.push(friend.id)
-                    end
-                end
-            end
-            tmp_friend = test_params[:test_users].reject { |c| c.empty? } 
-            invited_friends += tmp_friend.map(&:to_i)
-            invited_friends.uniq! 
+            # inviteGroup_params[:test_groups].each do |group_id|
+            #     if (! (group_id.empty?) )
+            #         Group.find(group_id.to_i).members.each do |friend|
+            #             invited_friends.push(friend.id)
+            #         end
+            #     end
+            # end
+            # tmp_friend = test_params[:test_users].reject { |c| c.empty? } 
+            # invited_friends += tmp_friend.map(&:to_i)
+            # invited_friends.uniq! 
         
-            invited_friends.each do |friend_id|             
+            @@invited_members_arr.each do |friend_id|             
                 invited_user = Invitation.new
                 invited_user.order_id = @order.id
                 invited_user.participant_id = friend_id
                 invited_user.save
             end
+
+            @@invited_members_arr = []
             redirect_to orders_path
         else
             render 'new'
@@ -79,30 +91,77 @@ class OrdersController < ApplicationController
             # @group = current_user.groups.find(params[:group_id])
             @invited_members = current_user.friends.search(params[:invited])
             @invited_members = current_user.except_current_user(@invited_members)
-            # render @invited_members.inspection
-            if @invited_members
-              respond_to do |format|
-                
-                # format.html { render partial: 'orders/order_invited_member' }
-                format.js { render partial: 'orders/order_invited_member' }
-              end
+            @invited_groups = current_user.groups.search(params[:invited])
+            if @invited_members || @invited_groups
+                respond_to do |format|               
+                    # format.html { render partial: 'orders/order_invited_member' }
+                    format.js { render partial: 'orders/order_invited_member' }
+                end
             else
-              respond_to do |format|
-                flash.now[:alert] = "Couldn't find user"
-                format.js { render partial: 'orders/order_invited_member' }
-              end
+                respond_to do |format|
+                    # flash.now[:alert] = "Couldn't find user"
+                    format.js { render partial: 'orders/order_invited_member' }
+                end
             end    
-          else
+        else
             respond_to do |format|
-              flash.now[:alert] = "Please enter a friend name or email to search"
-              format.js { render partial: 'users/member_result' }
+                # flash.now[:alert] = "Please enter a friend name or email to search"
+                # puts " hiiiiiiiii"
+                @invited_members = []
+                @invited_groups = []
+                format.js { render partial: 'orders/order_invited_member' }
             end
-          end
+        end
+    
     end
 
+    # add_invited GET      /order_add_members(.:format)  orders#add_invited  
+    def add_invited
+        if params[:member_id]
+            # puts params[:member_id]
+            if !(params[:member_id].empty?)
+                @@invited_members_arr.push(params[:member_id].to_i)
+            end
+        else 
+            # puts params[:group_id]
+            # params[:group_id].to_a.each do |group_id|
+                if (! (params[:group_id].empty?) )
+                    Group.find(params[:group_id].to_i).members.each do |friend|
+                        @@invited_members_arr.push(friend.id)
+                    end
+                end
+            # end
+        end
+        @@invited_members_arr.uniq!
+        # puts @@invited_members_arr
+        # user = User.all
+        @invited_members_arr_local = []
+        @@invited_members_arr.each do |friend_id|             
+            @invited_members_arr_local.push(User.find(friend_id))
+        end
+        if @invited_members_arr_local
+            respond_to do |format|               
+                format.js { render partial: 'orders/order_added_member_arr' }
+            end
+         end
+    end
 
-
-
+    # remove_invited GET    /order_remove_member/:remove_member_id(.:format)       orders#remove_invited
+    def remove_invited
+        @invited_members_arr_local = []
+        if params[:remove_member_id]
+            @@invited_members_arr.delete(params[:remove_member_id].to_i)
+            @@invited_members_arr.each do |friend_id|             
+                @invited_members_arr_local.push(User.find(friend_id))
+            end
+            if @invited_members_arr_local
+                respond_to do |format|               
+                    format.js { render partial: 'orders/order_added_member_arr' }
+                end
+             end
+        end  
+        puts "fix your db "
+    end
 
     private
 
@@ -135,6 +194,3 @@ class OrdersController < ApplicationController
     # end
 
 end
-
-
-   

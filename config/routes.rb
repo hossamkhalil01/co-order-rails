@@ -22,8 +22,11 @@ Rails.application.routes.draw do
   end
   
   get 'order_invited_members', to: 'orders#search_invited', as: 'search_invited'
-          
-  
+  get 'order_add_members/:member_id', to: 'orders#add_invited', as: 'add_invited'        
+  get 'order_add_groups/:group_id', to: 'orders#add_invited', as: 'add_invited_group'  
+  get 'order_remove_member/:remove_member_id', to: 'orders#remove_invited', as: 'remove_invited'
+
+
   get 'friends_list' => 'friends#listF'     
   get 'groups_list' => 'groups#listG'     
   get 'group_friend_list/:name' => 'groups#listGF'  

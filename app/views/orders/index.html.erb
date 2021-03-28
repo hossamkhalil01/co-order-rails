@@ -31,8 +31,8 @@
             <tr class=" text-center">
                 <td class="fs-5"> <%=order.meal_type.capitalize() %> </td>
                 <td class="fs-5"> <%= order.restaurant %> </td>
-                <td class="fs-5"> <%= order.invitations.all.count() %> </td>
-                <td class="fs-5"> <%= order.invitations.where("accepted = true").count %> </td>
+                <td class="fs-5"> <%= order.invitations.all.length %> </td>
+                <td class="fs-5"> <%= order.invitations.accepted_invitations.length %> </td>
                 <td class="fs-5"> <%= order.status.capitalize()  %> </td>
                 <td class="fs-5"> <a href="<%=  order_path(order)%>">View</a>
                     <% if  order.status == "active" %>

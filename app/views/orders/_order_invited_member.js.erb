@@ -1,2 +1,1 @@
-
-$('#order-member-result').append('<%= j render :partial => 'orders/order_invited_member', :formats => :html %>');
+document.querySelector('#order-member-result').innerHTML = '<%= j render 'orders/order_invited_member.html' %>'
