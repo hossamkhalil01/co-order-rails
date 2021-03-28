@@ -15,6 +15,11 @@ class OrdersController < ApplicationController
 
     end 
 
+    def summary
+        @order_summary = Order.first
+        @all_order_participants = @order_summary.participants 
+    end
+
     def new
         @order = Order.new
     end
@@ -65,11 +70,6 @@ class OrdersController < ApplicationController
     end
 
     private
-
-    
-      
-
-   
 
     def order_params
       params.require(:order).permit(:meal_type, :menu_image, :restaurant)
