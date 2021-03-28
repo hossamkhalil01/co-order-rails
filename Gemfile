@@ -80,5 +80,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Styling
 gem 'will_paginate', '~> 3.3'
-#gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
+gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
 gem "font-awesome-rails", "~> 4.7"

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   end
 
   resources :orders do
+    get '/accept_invitation', to: 'orders#accept_invitation', as: 'accept_invitation'
+    get '/summary', to: 'orders#summary', as: 'order_summary'
     get '/:status', to: 'orders#update_status', as: 'update_status'
     delete 'invitation/:invitation_id', to: 'orders#destroy_invitation', as: 'destroy_invitation'
     resources :details
