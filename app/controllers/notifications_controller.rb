@@ -1,8 +1,13 @@
 class NotificationsController < ApplicationController
 
     def index
-        @notifications = current_user.notifications.unread
+        @limited_notifications = current_user.notifications.order(created_at: :desc).limit(5)
+        @notifications = current_user.notifications
     end
+
+    def show 
+        @notifications = current_user.notifications
+    end 
 
     def mark_as_read
 
