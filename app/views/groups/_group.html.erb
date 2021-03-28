@@ -1,0 +1,10 @@
+<div class="row col-md-6 text-center">
+    <tr>
+        <td><%= group.name %></td>
+        <td><%= link_to "Edit", group_add_member_path(group), class: :"col-md-6 btn btn-info btn-sm" %>
+        </td>
+        <td>
+            <%= link_to "Delete", group_path(group), class: :"btn btn-danger btn-sm",  method: :delete, data: {confirm: "Are you sure?"} %></td>
+    </tr>
+
+</div>
