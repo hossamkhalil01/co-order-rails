@@ -5,7 +5,8 @@ class UsersController < ApplicationController
 
     def update
       @user = User.find(params[:id])
-      if @user.update(:image=> user_params[:user][:image])
+      if user_params[:user]
+        @user.update(:image=> user_params[:user][:image])
         redirect_to home_index_path
       else
         render 'edit'
