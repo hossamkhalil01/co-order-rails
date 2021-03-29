@@ -1,0 +1,81 @@
+<%= render 'layouts/navigation' %>
+
+<h1> New Order Form </h1>
+
+
+
+<div class="row col-md-12" style="top:0%; left:0%; ">
+
+    <div class="row col-md-5 border" style="top:0%; left:0% ; ">
+        <%= form_with model: @order do |form| %>
+        
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label" style="font-size: x-large; font-family: system-ui;" >Meal Type:</label>
+            <div class="col-md-8">
+            <%= form.select :meal_type, ['breakfast', 'lunch', 'dinner'], selected: 'lunch', :required => "true" %>
+             </div>
+        </div>               
+
+
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label" style="font-size: x-large; font-family: system-ui;">Restaurant Name:</label>
+            <div class="col-md-8">
+                <%= form.text_field :restaurant , :class => "form-control" , :required => "true" %>
+            </div>
+        </div>
+
+       <div class="form-group row">
+            <label class="col-md-4 col-form-label" style="font-size: x-large; font-family: system-ui;">Menu Image:</label>
+            <div class="col-md-8">
+            <%= form.file_field :menu_image, accept: 'image/jpeg, image/gif, image/png, /image/jpg' , :class => "form-control" , :required => "true" %>
+         </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                <%= form.submit  class: "btn btn-primary mb-2" %>
+             </div>
+        </div>
+
+        <% end %>
+    </div>
+
+<div class="col-md-1 row ">
+</div>
+    <div class="col-md-6 row border">
+        <div class="row col-md-12 mt-0">
+
+            <%= form_tag search_invited_path, remote: true, method: :get do %>
+            <div class="form-group row mt-0">
+                <div class="col-sm-9  no-right-padding">
+                    <%= text_field_tag :invited , params[:invited], placeholder: "Add friend or group ",
+                        autofocus: true, class: "form-control form-control-lg" , id: "searchTextField" %>
+                </div>
+                <div class="col-sm-3  no-left-padding d-none">
+                    <%= button_tag type: :submit, class: "btn btn-success" , id: "searchBtn" do %> <%= 'Search'%> <% end %>
+                </div>
+            </div>
+            <% end %>
+        </div>
+
+
+        <h3 style="margin-top:1%" >Search Result Field</h3>
+        <div class="row col-md-12  overflow-auto" style="top:0%; left:0% ; max-height: 240px;" id="order-member-result">
+        </div>
+
+        <h3 style="margin-top:1%" >Invited Members Field</h3>
+        <div class="row col-md-12 overflow-auto" style="top:0%; left:0% ; max-height: 350px;" id="order-member-final">
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<%= javascript_tag do %>
+document.getElementById('searchTextField').addEventListener('keyup', () => {
+document.getElementById('searchBtn').click();
+});
+<% end %>

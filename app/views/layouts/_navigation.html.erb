@@ -1,0 +1,114 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        // request the data
+        function getNotifications() {
+            $.ajax({
+                url: "/notifications.json",
+                dataType: "JSON",
+                method: "GET",
+                success: handleSuccess,
+
+            });
+        }
+
+        function handleSuccess(notifications) {
+
+            items = $.map(notifications, (notification) => {
+                return "<a class='dropdown-item' href = " + notification['url'] +
+                    " id=" + notification['id'] + "> " + notification['message'] +
+                    "</a>";
+            });
+            items.push("<div class='dropdown-divider'></div><a class='dropdown-item' href='/notifications'>See All</a>");
+            $("[data-behavior='notification-items']").html(items);
+
+            // update the count
+            $("[data-behavior='unread-count']").text(notifications.length);
+            // retry later
+            setTimeout(getNotifications, 5000);
+        }
+
+        $('#noti_Button').click(function() {
+
+            // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
+            $('#notifications').fadeToggle('fast', 'linear', function() {
+                if ($('#notifications').is(':hidden')) {}
+            });
+
+            $('#noti_Counter').fadeOut('slow'); // HIDE THE COUNTER.
+
+            return false;
+        });
+
+        getNotifications();
+
+    });
+</script>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Co-Order</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="<%= home_index_path %>">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= friends_path %>">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= groups_path %>">Groups</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= orders_path %>">Orders</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ali">
+
+                    <div class="btn-group float-right mr-5">
+
+                        <li id="noti_Button" type="button" class="fa fa-bell btn fa-lg" data-behavior="notifications-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: rgb(255, 255, 255);">
+                            <span class="badge badge-danger" data-behavior="unread-count"></span></li>
+
+                        <div id="notifications" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1" data-behavior="notification-items">
+                        </div>
+                    </div>
+
+                    <li class="nav-item ">
+                        <% if current_user.image? %>
+                        <a href="<%= edit_user_path(current_user.id) %>"><%= image_tag current_user.image.url, style: 'height:70px;width:70;' %></a>
+                        <% else %>
+                        <a href="<%= edit_user_path(current_user.id) %>"><img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;"></a>
+                        <% end %>
+                    </li>
+                    <li class="nav-item align-self-center">
+                        <% if user_signed_in? %>
+                        <span class="nav-link"><%= current_user.full_name.capitalize %></span>
+                    </li>
+                    <li class="nav-item align-self-center">
+                        <%=  link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete %>
+                    </li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+</nav>
+
+
+<script>
+    // When the user clicks on div, open the popup
+    function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+    }
+</script>
+</nav>

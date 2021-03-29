@@ -1,0 +1,7 @@
+    <tr>
+        <td><%= group.name %></td>
+        <td><%= link_to (image_tag("add.png",style: 'height:30px;width:30;')), group_add_member_path(group), class: "a_group" %>
+        </td>
+        <td>
+            <%= link_to (image_tag("delete.png",style: 'height:25px;width:25;')), group_path(group), method: :delete, data: {confirm: "Are you sure?"} %></td>
+    </tr>

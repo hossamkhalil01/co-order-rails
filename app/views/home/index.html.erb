@@ -1,0 +1,30 @@
+<%= render 'layouts/navigation' %>
+<div class="row col-md-12 justify-content-around mt-5 p-5 ">
+
+    <div class="row col-md-5 ">
+        <table class="table table-bordered table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Latest Orders</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%= render partial: "latest_order", collection: @latest_orders %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row col-md-5">
+        <table class="table table-bordered table-hover text-center ">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Friends Activities</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <%= render partial: "friends_order", collection: @friends_orders %>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<%= render 'layouts/navigation' %>
+
+<div style="padding: 1%">
+
+
+    <h1 style=""> My Orders</h1>
+
+    <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+        <a class="btn btn-primary w-15 btn-lg" href="/orders/new" role="button">
+            Start New Order
+        </a>
+    </div>
+    <table class="table table-striped fs-4 border">
+
+        <thead>
+            <tr colspan="3" class="text-center table-dark fs-8">
+                <th scope="col">Order</th>
+                <th scope="col">Restaurant</th>
+                <th scope="col">Invited</th>
+                <th scope="col">Joined</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <% for order in @orders do %>
+            <tr class=" text-center" id="<%= dom_id (order) %>">
+            <tr class=" text-center">
+                <td class="fs-5"> <%=order.meal_type.capitalize() %> </td>
+                <td class="fs-5"> <%= order.restaurant %> </td>
+                <td class="fs-5"> <%= order.invitations.all.length %> </td>
+                <td class="fs-5"> <%= order.invitations.accepted_invitations.length %> </td>
+                <td class="fs-5"> <%= order.status.capitalize()  %> </td>
+                <td class="fs-5"> <%= link_to (image_tag("edit.png",style: 'height:30px;width:30;')),  order_path(order) %>
+                    <% if  order.status == "active" %>
+                    <span> | </span>        
+                 <%= link_to (image_tag("check.png",style: 'height:30px;width:30;')),  order_update_status_path(order,"finish") %>
+                    <span> | </span>
+                    <%= link_to (image_tag("cancel.png",style: 'height:30px;width:30;')), order_update_status_path(order,"cancel") %>
+                    <% end %>
+                </td>
+            </tr>
+
+            <% end %>
+        </tbody>
+    </table>
+
+    <%= will_paginate @orders , class: "d-flex justify-content-center" %>
+</div>
+
