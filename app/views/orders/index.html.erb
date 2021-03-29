@@ -3,17 +3,17 @@
 <div style="padding: 1%">
 
 
-    <h1 style="margin-top: 2%; margin-bottom: 5%;"> My Orders</h1>
+    <h1 style=""> My Orders</h1>
 
-    <div class="d-flex justify-content-center" style="margin-bottom: 5%;">
-        <a class="btn btn-primary w-25" href="/orders/new" role="button">
+    <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+        <a class="btn btn-primary w-15 btn-lg" href="/orders/new" role="button">
             Start New Order
         </a>
     </div>
-    <table class="table table-striped fs-4">
+    <table class="table table-striped fs-4 border">
 
         <thead>
-            <tr class="text-center">
+            <tr colspan="3" class="text-center table-dark fs-8">
                 <th scope="col">Order</th>
                 <th scope="col">Restaurant</th>
                 <th scope="col">Invited</th>
@@ -33,12 +33,12 @@
                 <td class="fs-5"> <%= order.invitations.all.length %> </td>
                 <td class="fs-5"> <%= order.invitations.accepted_invitations.length %> </td>
                 <td class="fs-5"> <%= order.status.capitalize()  %> </td>
-                <td class="fs-5"> <a href="<%=  order_path(order)%>">View</a>
+                <td class="fs-5"> <%= link_to (image_tag("edit.png",style: 'height:30px;width:30;')),  order_path(order) %>
                     <% if  order.status == "active" %>
+                    <span> | </span>        
+                 <%= link_to (image_tag("check.png",style: 'height:30px;width:30;')),  order_update_status_path(order,"finish") %>
                     <span> | </span>
-                    <a href="<%=  order_update_status_path(order,"finish")%>">Finish</a>
-                    <span> | </span>
-                    <a href="<%=  order_update_status_path(order,"cancel")%>">Cancel</a>
+                    <%= link_to (image_tag("cancel.png",style: 'height:30px;width:30;')), order_update_status_path(order,"cancel") %>
                     <% end %>
                 </td>
             </tr>
@@ -49,3 +49,4 @@
 
     <%= will_paginate @orders , class: "d-flex justify-content-center" %>
 </div>
+

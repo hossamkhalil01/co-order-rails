@@ -2,18 +2,18 @@
 
 
 <%  @invited_members.each do |member| %>
-    <div class="col-md-4">
-        <div class="row" style="top:0%; left:0%">
-            <div class="col-md-3">
+    <div class="col-md-4  m-0 p-1">
+        <div class="row m-0 p-0" style="top:0%; left:0%">
+            <div class="col-md-3 m-0 p-0">
                 <% if member.image? %>
                 <%= image_tag member.image.url, style: 'height:70px;width:70;' %>
                 <% else %>
                 <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
                 <% end %>
             </div>
-            <div class="col-md-7">
-                <span class="col-md-12"> <%= member.full_name %> </span><br>
-                <span class="col-md-12"> <%= member.email %> </span>
+            <div class="col-md-7 m-0 p-0">
+                <span class="col-md-12 m-0 p-0"> <%= member.full_name %> </span><br>
+                <span class="col-md-12 m-0 p-0"> <%= member.email %> </span>
                 <br>
 
             <%= link_to 'Invite', add_invited_path(member.id), method: :get, remote: true %> 
@@ -25,15 +25,15 @@
 
 
 <%  @invited_groups.each do |group| %>
-    <div class="col-md-4">
-        <div class="row" style="top:0%; left:0%">
-            <div class="col-md-3">
+    <div class="col-md-4 m-0 p-1">
+        <div class="row  m-0 p-0" style="top:0%; left:0%">
+            <div class="col-md-3 m-0 p-1">
 
-                <img src="https://res.cloudinary.com/dtbudl0yx/image/fetch/w_2000,f_auto,q_auto,c_fit/https://adamtheautomator.com/wp-content/uploads/2019/12/group-1824145_1280-768x768.png" alt="unknown-image" style="width: 70px;height: 70px;">
+                <img src="https://res.cloudinary.com/dtbudl0yx/image/fetch/w_2000,f_auto,q_auto,c_fit/https://adamtheautomator.com/wp-content/uploads/2019/12/group-1824145_1280-768x768.png" alt="unknown-image" style="width: 60px;height: 60px;">
 
             </div>
-            <div class="col-md-7">
-                <span class="col-md-12"> <%= group.name %> </span><br>
+            <div class="col-md-7 m-0 p-0">
+                <span class="col-md-12 m-0 p-0"> <%= group.name %> </span><br>
                 <br>
  
                 <%= link_to 'Invite', add_invited_group_path(group.id), method: :get, remote: true %> 
