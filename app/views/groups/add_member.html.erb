@@ -38,7 +38,7 @@
                                 class: "form-control" %>
                             </div>
                             <div class="col-2 align-self-center m-auto d-none">
-                                <%= button_tag type: :submit, class: "btn btn-success btn-lg" do %>
+                                <%= button_tag type: :submit, class: "btn btn-success btn-lg", id: "btn-img" do %>
                                 <%= 'Search' %>
                                 <% end %>
                             </div>
@@ -70,6 +70,6 @@
 
 <%= javascript_tag do %>
 document.getElementById('member').addEventListener('keyup', () => {
-document.getElementsByClassName('btn')[1].click();
+document.getElementById('btn-img').click();
 });
 <% end %>

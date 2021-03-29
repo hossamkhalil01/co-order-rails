@@ -32,6 +32,9 @@ class OrdersController < ApplicationController
         @invitation = Invitation.where(participant_id: current_user.id , order_id: params[:order_id])[0]
         @invitation.accepted = true 
         @invitation.save
+        @current_order = Order.find(params[:order_id])
+        @order_owner = User.find(@current_order.owner_id)
+        InvResponseNotif.with(order: @current_order, participant: current_user).deliver_later(@order_owner)
         redirect_to  order_path(params[:order_id])
     end
 

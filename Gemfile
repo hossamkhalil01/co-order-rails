@@ -37,7 +37,8 @@ gem 'omniauth-rails_csrf_protection'
 gem 'dotenv-rails'
 
 # cookis conflict
-gem 'activerecord-session_store'
+# gem 'activerecord-session_store'
+# gem 'activerecord-session_store', '~> 2.0'
 gem 'pry'
 # Socket
 gem 'hotwire-rails'
