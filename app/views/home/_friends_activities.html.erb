@@ -1,3 +1,4 @@
-<p id="<%= dom_id(friends_activities)  %>">
-    <%= friends_activities.owner.first_name %> has created an <%= link_to 'order', order_path(friends_activities)  %> for <%= friends_activities.meal_type  %> from <%= friends_activities.restaurant  %>
-</p>
+<tr>
+    <%= friends_activities.owner.first_name %> has created an <%= link_to 'order',
+     order_path(friends_activities)  %> for <%= friends_activities.meal_type  %> from <%= friends_activities.restaurant  %>
+</tr>

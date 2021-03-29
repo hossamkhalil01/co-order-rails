@@ -1,27 +1,32 @@
 <%= render 'layouts/navigation' %>
+<div class="row col-md-12 justify-content-center" style="top:0%; left:0%; right: 0%; max-height: 400px;">
 
-
-
-<div class="container">
-
-    <div class="latest-orders text-center">
-        <h3>Latest Orders</h3>
-        <%= render partial: "latest_order", collection: @latest_orders %>
+    <div class="row col-md-5" style="top:0%; left:0% ; right: 0%; max-height: 400px;">
+        <table class="table  table-hover  text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Latest Orders</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%= render partial: "latest_order", collection: @latest_orders %>
+            </tbody>
+        </table>
     </div>
-    <div class="rom col-md-1"></div>
 
+    <div class="rom col-md-1"></div>
     <div class="row col-md-5 overflow-auto " style="top:0%; left:0% ;  right: 0%; max-height: 400px;">
         <table class="table  table-hover text-center">
             <thead class="table-dark">
                 <tr>
                     <th scope="col">Friends Activities</th>
-
-
-    <div class="friends-activity text-center">
-        <h3>Friends Activity </h3>
-        <% @friends.each do |friend| %>
-        <%= render partial: "friends_activities", collection: friend.orders.order(created_at: :desc).limit(5) %>
-        <% end %>
+                </tr>
+            </thead>
+            <tbody>
+                <% @friends.each do |friend| %>
+                <%= render partial: "friends_activities", collection: friend.orders.order(created_at: :desc).limit(5) %>
+                <% end %>
+            </tbody>
+        </table>
     </div>
-
 </div>
