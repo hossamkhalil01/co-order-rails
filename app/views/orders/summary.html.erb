@@ -4,7 +4,7 @@
     <p class="">
     <h2>this order is currently <%= @order_summary.status%> </h2>
     <h5><%= User.find(@order_summary.owner_id).full_name%></h5>
-    order a <%= @order_summary.meal_type %> from <%= @order_summary.restaurant %> and this is the menue
+    order a <%= @order_summary.meal_type %> from <%= @order_summary.restaurant %> and this is the menu
 
     <br />
     <% if @order_summary.menu_image? %>
@@ -22,5 +22,5 @@
     to join him
     </p>
 
-    <%= link_to "Accept Invitation", order_accept_invitation_path(@order_summary.id), method: :get , data: { confirm: 'Are you sure ?' } %>
+    <%= link_to "Accept Invitation", order_accept_invitation_path(@order_summary.id), method: :get %>
 </div>

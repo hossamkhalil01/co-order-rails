@@ -1,3 +1,16 @@
-<p id="<%= dom_id(friends_activities)  %>">
-    <%= friends_activities.owner.first_name %> has created an <%= link_to 'order', order_path(friends_activities)  %> for <%= friends_activities.meal_type  %> from <%= friends_activities.restaurant  %>
-</p>
+<tr>
+    <td>
+        <%= friends_activities.owner.first_name.capitalize %> has started an <%= link_to 'order',
+     order_path(friends_activities)  %><br><br> <p class="blockquote-footer"><%= friends_activities.meal_type.capitalize  %> at <%= friends_activities.restaurant.capitalize  %> </p>
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td>
+        <a href="<%= orders_path(latest_order) %>"> <%= latest_order.meal_type.capitalize  %> at <%= latest_order.restaurant.capitalize  %> </a><br><br>
+        <p class="blockquote-footer"><%= friends_activities.meal_type.capitalize  %> at <%= friends_activities.restaurant.capitalize  %> </p>
+    </td>
+</tr>
