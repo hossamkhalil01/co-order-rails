@@ -1,21 +1,23 @@
 <%  @invited_members_arr_local.each do |member| %>
-    <div class="col-md-4 m-0 p-1">
-        <div class="row m-0 p-0" style="top:0%; left:0%">
-            <div class="col-md-3 m-0 p-0">
-                <% if member.image? %>
-                <%= image_tag member.image.url, style: 'height:70px;width:70;' %>
-                <% else %>
-                <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
-                <% end %>
-            </div>
-            <div class="col-md-7 m-0 p-0">
-                <span class="col-md-12 m-0 p-0"> <%= member.full_name %> </span><br>
-                <span class="col-md-12 m-0 p-0"> <%= member.email %> </span>
-                <br>
+<div class="col-md-4 m-0 p-1">
+    <div class="row m-0 p-0" style="top:0%; left:0%">
+        <div class="col-md-3 m-0 p-0">
+            <% if member.image? %>
+            <%= image_tag member.image.url, style: 'width: 80%;
+    height: 95%;' %>
+            <% else %>
+            <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 80%;
+    height: 95%;">
+            <% end %>
+        </div>
+        <div class="col-md-7 m-0 p-0">
+            <span class="col-md-12 m-0 p-0"> <%= member.full_name %> </span><br>
+            <span class="col-md-12 m-0 p-0"> <%= member.email %> </span>
+            <br>
 
-            <%= link_to 'remove', remove_invited_path(member.id), method: :get, remote: true %> 
+            <%= link_to 'remove', remove_invited_path(member.id), method: :get, remote: true %>
 
-            </div>
         </div>
     </div>
+</div>
 <% end %>

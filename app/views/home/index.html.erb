@@ -8,7 +8,7 @@
                     <th scope="col">Latest Orders</th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody>
                 <%= render partial: "latest_order", collection: @latest_orders %>
             </tbody>
         </table>
@@ -22,9 +22,8 @@
                 </tr>
             </thead>
             <tbody>
-                <% @friends.each do |friend| %>
-                <%= render partial: "friends_activities", collection: friend.orders.order(created_at: :desc).limit(5) %>
-                <% end %>
+
+                <%= render partial: "friends_order", collection: @friends_orders %>
             </tbody>
         </table>
     </div>

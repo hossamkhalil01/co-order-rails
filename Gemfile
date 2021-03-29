@@ -87,3 +87,5 @@ gem 'will_paginate', '~> 3.3'
 gem "font-awesome-rails", "~> 4.7"
 
 # gem "jquery-rails", "~> 4.4"
+
+gem "jquery-rails", "~> 4.4"

@@ -1,0 +1,7 @@
+<tr>
+    <td>
+        <%= friends_order.owner.first_name.capitalize %> has started an <%= link_to 'order',
+     order_path(friends_order)  %><br><br>
+        <p class="blockquote-footer"><%= friends_order.meal_type.capitalize  %> at <%= friends_order.restaurant.capitalize  %> </p>
+    </td>
+</tr>
