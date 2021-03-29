@@ -1,31 +1,42 @@
 <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function() {
 
-        // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
-        $('#noti_Counter')
-            .css({
-                opacity: 0
-            })
-            .text('7') // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
-            .css({
-                top: '-10px'
-            })
-            .animate({
-                top: '-2px',
-                opacity: 1
-            }, 500);
+        // request the data
+        function getNotifications() {
+            $.ajax({
+                url: "/notifications.json",
+                dataType: "JSON",
+                method: "GET",
+                success: handleSuccess,
+
+                complete: function(data) {
+                    setTimeout(getNotifications, 5000);
+                }
+            });
+        }
+
+        function handleSuccess(notifications) {
+
+            items = $.map(notifications, (notification) => {
+                return "<a class='dropdown-item' href = " + notification['url'] +
+                    " id=" + notification['id'] + "> " + notification['message'] +
+                    "</a>";
+            });
+
+            $("[data-behavior='notification-items']").html(items);
+
+            // update the count
+            $("[data-behavior='unread-count']").text(notifications.length);
+        }
 
         $('#noti_Button').click(function() {
 
             // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
             $('#notifications').fadeToggle('fast', 'linear', function() {
-                if ($('#notifications').is(':hidden')) {
-                    $('#noti_Button').css('background-color', '#646464');
-                }
-                // CHANGE BACKGROUND COLOR OF THE BUTTON.
-                else $('#noti_Button').css('background-color', '#FFF');
+                if ($('#notifications').is(':hidden')) {}
             });
 
             $('#noti_Counter').fadeOut('slow'); // HIDE THE COUNTER.
@@ -33,28 +44,16 @@
             return false;
         });
 
-        // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
-        $(document).click(function() {
-            $('#notifications').hide();
+        setTimeout(getNotifications, 5000);
 
-            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
-            if ($('#noti_Counter').is(':hidden')) {
-                // CHANGE BACKGROUND COLOR OF THE BUTTON.
-                $('#noti_Button').css('background-color', '#646464');
-            }
-        });
-
-        $('#notifications').click(function() {
-            return false; // DO NOTHING WHEN CONTAINER IS CLICKED.
-        });
     });
 </script>
-
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Co-Order</a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -77,6 +76,17 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ali">
 
 
+
+                    <li class="nav-item btn-group" data-behavior="notifications" data-notifications='<%= render template: "notifications/index", formats: [:json] %>'>
+                        <a id="noti_Button" class="dropdown-toggle nav-link" type="button" data-behavior="notifications-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= fa_icon "bell" %> <span data-behavior="unread-count"></span>
+                        </a>
+                        <div id="notifications" class="dropdown-menu " aria-labelledby="dropdownMenu1" data-behavior="notification-items">
+                        </div>
+                    </li>
+
+                    <%
+=begin%>
                     <li id="noti_Container" class="nav-item align-self-center">
                         <div id="noti_Counter"></div>
                         <!--SHOW NOTIFICATIONS COUNT.-->
@@ -87,10 +97,13 @@
                         <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                         <div id="notifications">
                             <h3>Notifications</h3>
-                            <div style="height:300px;"></div>
+                            <%= render partial: "layouts/notification", collection: current_user.notifications %>
                             <div class="seeAll"><a href="#">See All</a></div>
                         </div>
                     </li>
+                    <%
+=end%>
+
 
 
                     <li class="nav-item ">
@@ -102,7 +115,7 @@
                     </li>
                     <li class="nav-item align-self-center">
                         <% if user_signed_in? %>
-                        <span class="nav-link"><%= current_user.first_name %></span>
+                        <span class="nav-link"><%= current_user.full_name %></span>
                     </li>
                     <li class="nav-item align-self-center">
                         <%=  link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete %>

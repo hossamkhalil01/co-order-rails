@@ -16,7 +16,16 @@ Rails.application.routes.draw do
 
   resources :orders do
     get '/:status', to: 'orders#update_status', as: 'update_status'
+    delete 'invitation/:invitation_id', to: 'orders#destroy_invitation', as: 'destroy_invitation'
     resources :details
   end 
-                                         
+
+  resources :notifications 
+  
+  get 'order_invited_members', to: 'orders#search_invited', as: 'search_invited'
+  get 'order_add_members/:member_id', to: 'orders#add_invited', as: 'add_invited'        
+  get 'order_add_groups/:group_id', to: 'orders#add_invited', as: 'add_invited_group'  
+  get 'order_remove_member/:remove_member_id', to: 'orders#remove_invited', as: 'remove_invited'
+
+
 end

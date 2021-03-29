@@ -17,7 +17,7 @@
     </button>
 
     <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#invited-friends" style="padding:0%;width: 10%">
-        <%= @participants.count %> friends invited
+        <%= @pending_invitations.count %> friends invited
     </button>
 
     <table class="table table-striped fs-4" style="margin-top: 3%;">
@@ -45,8 +45,9 @@
                 <td class="fs-5"> <%= detail.comment %> </td>
                 <% if current_user.id == detail.orderer_id %>
                 <td>
-                    <%= link_to "Delete", order_detail_path(@order,detail), method: :delete %>
                     <%= link_to "Edit", edit_order_detail_path(@order,detail), method: :get %>
+                    <%= link_to "Delete", order_detail_path(@order,detail), method: :delete , data: { confirm: 'Are you sure?' } %>
+
                 </td>
                 <td class="fs-5"> </td>
                 <% end %>
@@ -61,16 +62,11 @@
 
 </div>
 
-<div class="row justify-content: center">
-    <%= will_paginate @order_details  %>
-    <%
-=begin%>
-    <%= will_paginate @order_details , renderer: BootstrapPagination::Rails %>
-    <%
-=end%>
-    <div>
+
+    <%= will_paginate @order_details , class: "d-flex justify-content-center" %>
 
 
+<% if @order.status == 'active' && @authorized == true %>
         <%= form_with model: @detail , url: order_details_path(@order.id)  do |form| %>
         <%= form.label :Amount%>
         <%= form.text_field :amount %>
@@ -83,7 +79,7 @@
 
         <%= form.submit %>
         <% end %>
-
+<% end %>
 
         <!-- Modal -->
         <div class="modal fade" id="invited-friends" tabindex="-1" aria-labelledby="invited-friendsLabel" aria-hidden="true">
@@ -95,21 +91,24 @@
                     </div>
                     <div class="modal-body" style="max-height:300px; overflow:auto">
 
-                        <% for participant in @participants %>
+                        <% for pending_invitation in @pending_invitations %>
+                            <% pended_user = User.find(pending_invitation.participant_id) %>
 
                         <div class="row" style="top: 0%; left:0% ">
                             <div class="col-md-2">
-                                <% if participant.image? %>
-                                <%= image_tag participant.image.url, style: 'height:70px;width:70;' %>
+                                <% if pended_user.image? %>
+                                <%= image_tag pended_user.image.url, style: 'height:70px;width:70;' %>
                                 <% else %>
                                 <img src="https://i.ibb.co/SK3QN1j/unknown-image.jpg" alt="unknown-image" style="width: 70px;height: 70px;">
                                 <% end %>
                             </div>
                             <div class="col-md-7">
-                                <span class="col-md-12"> <%= participant.first_name %> <%= participant.last_name %> </span>
-                                <br><br>
+                                <span class="col-md-12"> <%= pended_user.full_name %> </span>
+                                <br>
+                                <span class="col-md-12"> <%= pended_user.email %> </span>
+                                <br>
                                 <% if current_user.id == @order.owner_id %>
-                                <%= link_to 'remove', friend_path(participant.id) , method: :delete, data: { confirm: 'Are you sure?' } %>
+                                <%= link_to 'remove', order_destroy_invitation_path( @order, @order.invitations.where(participant_id:pended_user.id)[0] ) , method: :delete, data: { confirm: 'Are you sure?' } %>
                                 <% end %>
                             </div>
                         </div>
