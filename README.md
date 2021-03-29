@@ -1,11 +1,5 @@
 # **Co-Order**
 
-![demo gif](https://github.com/hossamkhalil01/mask-up-js/blob/main/demo/demo.gif?raw=true)
-
-## Overview
-
----
-
 Co-Order is a web application that helps you coordinate and place orders with your friends.
 The project is developed using Ruby on Rails framework and MySQL database.
 
