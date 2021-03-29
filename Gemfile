@@ -83,4 +83,4 @@ gem 'will_paginate', '~> 3.3'
 # gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
 gem "font-awesome-rails", "~> 4.7"
 
-gem "jquery-rails", "~> 4.4"
+# gem "jquery-rails", "~> 4.4"

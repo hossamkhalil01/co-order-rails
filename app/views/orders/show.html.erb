@@ -1,28 +1,58 @@
+<link href="https://www.w3schools.com/w3css/4/w3.css" media="screen" rel="stylesheet" />
 <%= render 'layouts/navigation' %>
 
 <div style="padding: 1%">
     <h2 style="margin-top: 2%;"> <%= @order.meal_type.capitalize() %> from <%= @order.restaurant %></h2>
-    <h3> By: <%= @order.owner.first_name.capitalize %> <%= @order.owner.last_name.capitalize()%> </h3>
+    <h5> By: <%= @order.owner.first_name.capitalize %> <%= @order.owner.last_name.capitalize()%> </h5>
 
     <% if @order.menu_image? %>
-    <%= image_tag @order.menu_image.url, style:"height: 200px;width: 300px;margin-left: 40%;" %>
+    <%= image_tag @order.menu_image.url, style:"height: 250px;width: 100%;", id: "image"%>
     <% else %>
     <img src="https://menuready.com.au/wp-content/uploads/2017/12/DUMMY-MENU.png" alt="unknown-image" style="width: 70px;height: 70px;">
     <% end %>
 
-
     <br>
-    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#accepted-friends" style="margin-left:75%;padding:0%;width: 11%">
-        <%= @accepted_invitations.count %> friends accepted
-    </button>
+    <br>
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-outline-info p-1 me-2" data-bs-toggle="modal" data-bs-target="#accepted-friends">
+            <%= @accepted_invitations.count %> friends accepted
+        </button>
+    
+        <button type="button" class="btn btn-outline-info p-1" data-bs-toggle="modal" data-bs-target="#invited-friends">
+            <%= @pending_invitations.count %> friends invited
+        </button>
+    </div>
+    <br>
 
-    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#invited-friends" style="padding:0%;width: 10%">
-        <%= @pending_invitations.count %> friends invited
-    </button>
+    <% if @order.status == 'active' && @authorized == true %>
+    <%= form_with model: @detail , url: order_details_path(@order.id)  do |form| %>
+    <div class="d-flex justify-content-lg-around align-items-center">
+        <div class="col-2">
+            <%= form.label :Item, class:"form-label"%>
+            <%= form.text_field :item, class:"form-control", required: true %>    
+        </div>
+        <div class="col-1">
+            <%= form.label :Amount, class:"form-label"%>
+            <%= form.number_field :amount, class:"form-control", required: true %>
+        </div>
+        <div class="col-1">
+            <%= form.label :Price, class:"form-label"%>
+            <%= form.number_field :price, class:"form-control", required: true%>
+        </div>
+        <div class="col-4">
+            <%= form.label :Comment, class:"form-label"%>
+            <%= form.text_area :comment, size: "30x1", class:"form-control" %>
+        </div>
+        <div class="col-1 mt-4">
+            <%= form.submit class: "btn btn-primary"%>
+        </div>
+    </div>
+    <% end %>
+<% end %>
 
     <table class="table table-striped fs-4" style="margin-top: 3%;">
 
-        <thead>
+        <thead class="table-dark">
             <tr class="text-center">
                 <th scope="col">Person</th>
                 <th scope="col">Item</th>
@@ -38,18 +68,19 @@
             <% for detail in @order_details do %>
 
             <tr class="text-center">
-                <td class="fs-5"> <%= detail.orderer.first_name %> </td>
-                <td class="fs-5"> <%= detail.item %> </td>
-                <td class="fs-5"> <%= detail.amount %> </td>
-                <td class="fs-5"> <%= detail.price %> </td>
-                <td class="fs-5"> <%= detail.comment %> </td>
+                <td class="fs-6"> <%= detail.orderer.first_name %> </td>
+                <td class="fs-6"> <%= detail.item %> </td>
+                <td class="fs-6"> <%= detail.amount %> </td>
+                <td class="fs-6"> <%= detail.price %> </td>
+                <td class="fs-6"> <%= detail.comment %> </td>
                 <% if current_user.id == detail.orderer_id %>
                 <td>
-                    <%= link_to "Edit", edit_order_detail_path(@order,detail), method: :get %>
-                    <%= link_to "Delete", order_detail_path(@order,detail), method: :delete , data: { confirm: 'Are you sure?' } %>
+                    <%= link_to (image_tag("edit-png-icon.png",style: 'height:15px;width:15;')), edit_order_detail_path(@order,detail), method: :get %>
+                    <span>&nbsp</span>
+                    <%= link_to (image_tag("delete-png-icon.png",style: 'height:15px;width:15;')), order_detail_path(@order,detail), method: :delete , data: { confirm: 'Are you sure?' } %>
 
                 </td>
-                <td class="fs-5"> </td>
+                
                 <% end %>
 
             </tr>
@@ -65,21 +96,8 @@
 
     <%= will_paginate @order_details , class: "d-flex justify-content-center" %>
 
+ 
 
-<% if @order.status == 'active' && @authorized == true %>
-        <%= form_with model: @detail , url: order_details_path(@order.id)  do |form| %>
-        <%= form.label :Amount%>
-        <%= form.text_field :amount %>
-        <%= form.label :Item%>
-        <%= form.text_field :item %>
-        <%= form.label :Price%>
-        <%= form.text_field :price %>
-        <%= form.label :Comment%>
-        <%= form.text_area :comment, size: "30x5" %>
-
-        <%= form.submit %>
-        <% end %>
-<% end %>
 
         <!-- Modal -->
         <div class="modal fade" id="invited-friends" tabindex="-1" aria-labelledby="invited-friendsLabel" aria-hidden="true">
@@ -169,3 +187,17 @@
                 </div>
             </div>
         </div>
+        <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+            <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+            <div class="w3-modal-content w3-animate-zoom">
+              <img id="img01" style="width:100%">
+            </div>
+          </div>
+
+<%= javascript_tag do %>
+    $("#image").on("click", function(e) {
+        document.getElementById("img01").src = e.target.currentSrc;
+        document.getElementById("modal01").style.display = "block";
+    });
+   
+<% end %>
