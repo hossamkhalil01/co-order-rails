@@ -2,28 +2,19 @@
 <div>
     <h1>Groups</h1>
 </div>
-<%= render 'form' %>
-<div class="container-fluid">
-    <div class="d-flex border justify-content-between">
-        <div class="d-flex col-md-3 border">
-            <div class="col-md-12">
-                <div>
-                    <% @groups.each do |group| %>
-                    <p><%=  group.name %></p>
-                    <%= link_to "Edit", group_add_member_path(group) %>
-                    <%= link_to "Delete", group_path(group), method: :delete, data: {confirm: "Are you sure?"} %>
-                    <% end %>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8 border">
-            <div class="col-md-12">
-                <div>
-                    <p>
 
-                    </p>
-                </div>
-            </div>
-        </div>
+
+<%= render 'form' %>
+<div class="row col-md-12 m-3 mt-5">
+    <div class="row col-md-3 ">
+        <table class="table text-center ">
+            <thead class="table-dark">
+                <tr>
+                    <th colspan="3">My Groups</th>
+                </tr>
+            </thead>
+            <%= render @groups %>
+
+        </table>
     </div>
 </div>

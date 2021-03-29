@@ -1,2 +1,9 @@
-<a id="<%= dom_id (latest_order) %>" href="<%= orders_path(latest_order) %>"> <%= latest_order.meal_type  %> on <%= latest_order.created_at  %></a>
-<br />
+<tr><td>
+<a href="<%= orders_path(latest_order) %>"> <%= latest_order.meal_type.capitalize  %> at <%= latest_order.restaurant.capitalize  %> </a><br><br>
+<p class="blockquote-footer"> on <%= latest_order.created_at %> </p>
+</td></tr>
+
+
+
+
+

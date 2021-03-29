@@ -11,7 +11,7 @@ class FriendsController < ApplicationController
             flash[:error] = "You can't add yourself."
           else
               if Friendship.create(friend_id: user.id, user_id: current_user.id)
-                flash[:notice] = "Friend added."
+                flash[:info] = "Friend added."
               else
                 flash[:error] = "Unable to add friend."
               end
@@ -26,7 +26,7 @@ class FriendsController < ApplicationController
     def destroy
         @friend = Friendship.where(friend_id: params[:id])[0]
         @friend.destroy
-        flash[:notice] = "Friend Removed."
+        flash[:info] = "Friend Removed."
         redirect_to friends_path
     end
 

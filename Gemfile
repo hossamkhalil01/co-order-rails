@@ -36,6 +36,8 @@ gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'omniauth-rails_csrf_protection'
 gem 'dotenv-rails'
 
+# cookis conflict
+gem 'activerecord-session_store'
 gem 'pry'
 # Socket
 gem 'hotwire-rails'
@@ -52,27 +54,27 @@ gem 'bootstrap-will_paginate'
 gem "noticed", "~> 1.3"
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+# Call 'byebug' anywhere in the code to stop execution and get a debugger console
+gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 4.1.0'
-  # Display performance information such as SQL time and flame graphs for each request in your browser.
-  # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'rack-mini-profiler', '~> 2.0'
-  gem 'listen', '~> 3.3'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+# Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+gem 'web-console', '>= 4.1.0'
+# Display performance information such as SQL time and flame graphs for each request in your browser.
+# Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
+gem 'rack-mini-profiler', '~> 2.0'
+gem 'listen', '~> 3.3'
+# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+gem 'spring'
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.26'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+# Adds support for Capybara system testing and selenium driver
+gem 'capybara', '>= 3.26'
+gem 'selenium-webdriver'
+# Easy installation and use of web drivers to run system tests with browsers
+gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

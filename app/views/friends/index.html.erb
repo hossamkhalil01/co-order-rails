@@ -2,25 +2,22 @@
 
 
 <div>
-    <h1 class="title">Friends</h1>
+
+    <h1 class="title w-25" style="margin-left: 5%; ">Friends</h1>
     <%= form_with model: @friend, local: true do |form| %>
-    <div class="row">
-        <div class="col-md-3" style="margin-top: 2%; text-align: right; font-weight: 700;">
-            <%= form.label :email %><br>
-        </div>
+    <div class="row justify-content-center">
+
         <div class="col-md-4">
-            <%= form.email_field :email, class:'form-control' %>
-        </div>
-        <div class="col-md-2">
-            <input type="submit" class="btn btn-primary" style="margin:auto; padding:0%; line-height:35px;" value="Add">
+            <%= form.email_field :email, class:'form-control', placeholder: "Write an email to add friend" %>
             <% if flash[:error] %>
-            <div class="error"><%= flash[:error] %></div>
+            <div class="error text-center" style="margin-top: 10px; font-size: medium;"><%= flash[:error] %></div>
             <% end %>
-            <% if flash[:notice] %>
-            <div class="notice"><%= flash[:notice] %></div>
+            <% if flash[:info] %>
+            <div class="notice text-center" style="margin-top: 10px; font-size: medium;"><%= flash[:info] %></div>
             <% end %>
-
-
+        </div>
+        <div class="col-md-1">
+            <input type="submit" class="btn btn-primary" style="margin:auto; padding:0%; line-height:35px;" value="Add">
 
         </div>
     </div>
