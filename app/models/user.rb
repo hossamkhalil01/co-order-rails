@@ -63,7 +63,7 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.name
       user.last_name = auth.info.name   
-      user.image = auth.info.image 
+      # user.image = auth.info.image 
       # skiping eamil confirmation when use the providers  
       if user.image
       else
