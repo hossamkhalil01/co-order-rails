@@ -12,9 +12,6 @@
                 method: "GET",
                 success: handleSuccess,
 
-                complete: function(data) {
-                    setTimeout(getNotifications, 5000);
-                }
             });
         }
 
@@ -30,6 +27,8 @@
 
             // update the count
             $("[data-behavior='unread-count']").text(notifications.length);
+            // retry later
+            setTimeout(getNotifications, 10000);
         }
 
         $('#noti_Button').click(function() {
@@ -44,7 +43,7 @@
             return false;
         });
 
-        setTimeout(getNotifications, 5000);
+        setTimeout(getNotifications, 10000);
 
     });
 </script>
