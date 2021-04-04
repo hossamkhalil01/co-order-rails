@@ -2,7 +2,7 @@
 
 <div class="container ">
     <p class="">
-    <h2>this order is currently <%= @order_summary.status%> </h2>
+    <h2>This order is currently <%= @order_summary.status%> </h2>
     <h5><%= User.find(@order_summary.owner_id).full_name%></h5>
     order a <%= @order_summary.meal_type %> from <%= @order_summary.restaurant %> and this is the menu
 
@@ -12,7 +12,7 @@
     <% else %>
     <img src="https://menuready.com.au/wp-content/uploads/2017/12/DUMMY-MENU.png" alt="unknown-image" style="width: 70px;height: 70px;">
     <% end %>
-
+    <% if @order_summary.status == "active" %>
     <br />
     and asked
     <% @all_order_participants.each do | participate| %>
@@ -22,5 +22,7 @@
     to join him
     </p>
 
+
     <%= link_to "Accept Invitation", order_accept_invitation_path(@order_summary.id), method: :get %>
+    <% end %>
 </div>
