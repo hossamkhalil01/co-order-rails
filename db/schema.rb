@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_182547) do
   end
 
   create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "meal_type", default: "launch", null: false
+    t.string "meal_type", default: "lunch", null: false
     t.string "menu_image", default: "", null: false
     t.string "restaurant", null: false
     t.string "status", default: "active", null: false

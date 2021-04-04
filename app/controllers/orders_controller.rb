@@ -10,6 +10,9 @@ class OrdersController < ApplicationController
     def show 
         # *************** check accpted or owner == current 
         @order = Order.find(params[:id])
+        if @order.status != "active"
+            redirect_to order_order_summary_path(params[:id])
+        end
         @order_details = @order.details.all.paginate(page: params[:page])
         @detail = Detail.new
         @pending_invitations = @order.invitations.pending_invitations
